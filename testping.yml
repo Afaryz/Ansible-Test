@@ -1,0 +1,12 @@
+---
+- name: Einfacher Ping- und Ausgabe-Test
+  hosts: all
+  gather_facts: false
+
+  tasks:
+    - name: Ausgabe eines Test-Strings
+      debug:
+        msg: "Hallo von Ansible!"
+
+    - name: Ping das Zielsystem
+      ping:
