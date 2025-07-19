@@ -47,7 +47,7 @@
       debug: 
         msg: "{{ range_nodes}}"
 - name: try filter auf BUCHUNGSNR 300 node 3 und 4
-  hosts: 300
+  hosts: group_300
   tasks:
     - name: update apt packages
       apt:
