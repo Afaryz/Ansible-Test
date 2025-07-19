@@ -2,11 +2,13 @@
 - hosts: all
 
   become: true
+  vars:
+    node_prefix: "rbpcm-node-"
   tasks:
     - name: Nur Hosts mit gewünschter Node-Nummer
       debug:
-        msg: "Node {{ node }} ausgewählt"
-      when: node == target_node | default(node)
+        msg: "Ich bin {{ inventory_hostname }}"
+      when: inventory_hostname == (node_prefix ~ target_node | string)
 
     - name: Nur Hosts aus gewünschtem Land
       debug:
