@@ -2,7 +2,7 @@
   hosts: all
   become: true
   tasks:
-    - name: Debug Enum
+    - name: Reboot Time 
       debug: 
         msg: "{{ rtimeout }}"
     - name: Reboot system
