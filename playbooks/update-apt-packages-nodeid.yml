@@ -16,6 +16,16 @@
       debug:
         msg: "Land {{ country }} ausgewählt"
       when: country == target_country | default(country)
+
+    - name: Nur Hosts mit gewünschter Node-Nummer
+      debug:
+        msg: "Ich bin {{ inventory_hostname }} mit node={{ node }}"
+      when: (node | string) == (target_node | default(node) | string)
+
+    - name: Nur Hosts aus gewünschtem Land
+      debug:
+        msg: "Land {{ country }} ausgewählt"
+      when: (country | string) == (target_country | default(country) | string)
 #    - name: update apt packages
 #      apt:
 #        upgrade: yes
