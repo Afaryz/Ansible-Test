@@ -34,7 +34,7 @@
         msg: "Land {{ country }} ausgewählt"
       when: (country | string) == (target_country | default(country) | string)
 
-- name: try filter first
+- name: try filter first auf gerade
   hosts: gerade
   tasks:
     - name: Welcher Host mit welchem Node
@@ -46,6 +46,13 @@
     - name: Debug Enum
       debug: 
         msg: "{{ range_nodes}}"
+- name: try filter auf BUCHUNGSNR 300 - node 3 & 4
+  hosts: 300
+  tasks:
+    - name: update apt packages
+      apt:
+        upgrade: yes
+        update_cache: yes
     
 #    - name: update apt packages
 #      apt:
