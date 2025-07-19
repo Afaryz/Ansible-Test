@@ -10,6 +10,8 @@
       ansible.builtin.user:
         name: "{{ user }}"
         shell: /bin/bash
+        groups: sudo
+        append: yes
 
     - name: Create .ssh directory
       file:
