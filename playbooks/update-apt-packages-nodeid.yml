@@ -7,8 +7,10 @@
   tasks:
     - name: Nur Hosts mit gewünschter Node-Nummer
       debug:
-        msg: "Ich bin {{ inventory_hostname }}"
-      when: inventory_hostname == (node_prefix ~ target_node | string)
+      #  msg: "Ich bin {{ inventory_hostname }}"
+      #when: inventory_hostname == (node_prefix ~ target_node | string)
+       msg: "Ich bin {{ node}}"
+      when: node == (target_node | string)
 
     - name: Nur Hosts aus gewünschtem Land
       debug:
