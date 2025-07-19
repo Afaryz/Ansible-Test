@@ -5,5 +5,5 @@
     - name: Reboot system
       ansible.builtin.reboot:
         msg: "Reboot initiated by Ansible"
-        reboot_timeout: rtimeout | default(rtimeout)
+        reboot_timeout: "{{ rtimeout | default(600) | int }}"
         test_command: whoami
