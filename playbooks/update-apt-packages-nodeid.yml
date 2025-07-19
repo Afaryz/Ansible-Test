@@ -43,6 +43,9 @@
     - name: Welches Land
       debug:
         msg: "Land {{ country }} ausgewählt"
+    - name: Debug Enum
+      debug: 
+        msg: "{{ range_nodes}}"
     
 #    - name: update apt packages
 #      apt:
