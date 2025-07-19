@@ -1,0 +1,19 @@
+---
+- hosts: all
+
+  become: true
+  tasks:
+    - name: Nur Hosts mit gewünschter Node-Nummer
+      debug:
+        msg: "Node {{ node }} ausgewählt"
+      when: node == target_node | default(node)
+
+    - name: Nur Hosts aus gewünschtem Land
+      debug:
+        msg: "Land {{ country }} ausgewählt"
+      when: country == target_country | default(country)
+#    - name: update apt packages
+#      apt:
+#        upgrade: yes
+#        update_cache: yes
+        
