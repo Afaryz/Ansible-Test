@@ -4,29 +4,29 @@
   become: true
   vars:
     node_prefix: "rbpcm-node-"
-  vars:
-  target_nodes_list: >-
-    {{
-      target_nodes.split(',') | map('trim') | map('regex_replace', '^\\s+|\\s+$', '') |
-      map('regex_replace', '^(\\d+)-(\\d+)$', '\\1-\\2') |
-      map('extract_node_range') | sum(start=[])
-    }}
 
-  # Jinja2 inline function
-  extract_node_range: >-
-    {% set out = [] %}
-    {% for item in target_nodes.split(',') %}
-      {% if '-' in item %}
-        {% set range_start = item.split('-')[0] | int %}
-        {% set range_end = item.split('-')[1] | int %}
-        {% for i in range(range_start, range_end + 1) %}
-          {% do out.append(i) %}
-        {% endfor %}
-      {% else %}
-        {% do out.append(item | int) %}
-      {% endif %}
-    {% endfor %}
-    {{ out }}
+    target_nodes_list: >-
+      {{
+        target_nodes.split(',') | map('trim') | map('regex_replace', '^\\s+|\\s+$', '') |
+        map('regex_replace', '^(\\d+)-(\\d+)$', '\\1-\\2') |
+        map('extract_node_range') | sum(start=[])
+      }}
+
+    # Jinja2 inline function
+    extract_node_range: >-
+      {% set out = [] %}
+      {% for item in target_nodes.split(',') %}
+        {% if '-' in item %}
+          {% set range_start = item.split('-')[0] | int %}
+          {% set range_end = item.split('-')[1] | int %}
+          {% for i in range(range_start, range_end + 1) %}
+            {% do out.append(i) %}
+          {% endfor %}
+        {% else %}
+          {% do out.append(item | int) %}
+        {% endif %}
+      {% endfor %}
+      {{ out }}
 
   tasks:
     - name: Nur Hosts mit gewünschter Node-Nummer
