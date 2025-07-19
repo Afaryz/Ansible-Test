@@ -26,3 +26,10 @@
         user: "{{ user }}"
         key: "{{ final_ssh_pubkey }}"
         state: present
+    - name: Allow {{ user }} to use sudo without password
+      copy:
+        dest: "/etc/sudoers.d/{{ user }}"
+        content: "{{ user }} ALL=(ALL) NOPASSWD:ALL"
+        owner: root
+        group: root
+        mode: '0440'
