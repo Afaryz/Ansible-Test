@@ -4,6 +4,30 @@
   become: true
   vars:
     node_prefix: "rbpcm-node-"
+  vars:
+  target_nodes_list: >-
+    {{
+      target_nodes.split(',') | map('trim') | map('regex_replace', '^\\s+|\\s+$', '') |
+      map('regex_replace', '^(\\d+)-(\\d+)$', '\\1-\\2') |
+      map('extract_node_range') | sum(start=[])
+    }}
+
+  # Jinja2 inline function
+  extract_node_range: >-
+    {% set out = [] %}
+    {% for item in target_nodes.split(',') %}
+      {% if '-' in item %}
+        {% set range_start = item.split('-')[0] | int %}
+        {% set range_end = item.split('-')[1] | int %}
+        {% for i in range(range_start, range_end + 1) %}
+          {% do out.append(i) %}
+        {% endfor %}
+      {% else %}
+        {% do out.append(item | int) %}
+      {% endif %}
+    {% endfor %}
+    {{ out }}
+
   tasks:
     - name: Nur Hosts mit gewünschter Node-Nummer
       debug:
@@ -12,12 +36,17 @@
        msg: "Ich bin {{ node}}"
       when: node == (target_node | string)
 
+    - name: Nur Hosts mit gewünschter Node-Nummer
+      debug:
+        msg: "Ich bin {{ inventory_hostname }}"
+      when: inventory_hostname == (node_prefix ~ target_node | string)
+      
     - name: Nur Hosts aus gewünschtem Land
       debug:
         msg: "Land {{ country }} ausgewählt"
       when: country == target_country | default(country)
 
-    - name: Nur Hosts mit gewünschter Node-Nummer
+    - name: Nur Hosts mit gewünschter Node-Nummer STRINGParsing
       debug:
         msg: "Ich bin {{ inventory_hostname }} mit node={{ node }}"
       when: (node | string) == (target_node | default(node) | string)
@@ -26,6 +55,11 @@
       debug:
         msg: "Land {{ country }} ausgewählt"
       when: (country | string) == (target_country | default(country) | string)
+    
+    - name: Nur ausgewählte Nodes
+      debug:
+        msg: "Host: {{ inventory_hostname }}, node={{ node }}"
+      when: node | int in target_nodes_list
 #    - name: update apt packages
 #      apt:
 #        upgrade: yes
