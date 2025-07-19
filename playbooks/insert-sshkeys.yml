@@ -3,6 +3,9 @@
   vars:
     user: deploy
   tasks:
+    - name: Debug SSH Key 
+      debug:
+        msg: "{{ final_ssh_pubkey}}"
     - name: Ensure user exists
       ansible.builtin.user:
         name: "{{ user }}"
