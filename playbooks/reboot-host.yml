@@ -2,6 +2,9 @@
   hosts: all
   become: true
   tasks:
+    - name: Debug Enum
+      debug: 
+        msg: "{{ rtimeout }}"
     - name: Reboot system
       ansible.builtin.reboot:
         msg: "Reboot initiated by Ansible"
