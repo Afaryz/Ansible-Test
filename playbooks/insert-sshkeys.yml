@@ -1,0 +1,23 @@
+- hosts: all
+  become: yes
+  vars:
+    user: deploy
+  tasks:
+    - name: Ensure user exists
+      ansible.builtin.user:
+        name: "{{ user }}"
+        shell: /bin/bash
+
+    - name: Create .ssh directory
+      file:
+        path: "/home/{{ user }}/.ssh"
+        state: directory
+        owner: "{{ user }}"
+        group: "{{ user }}"
+        mode: '0700'
+
+    - name: Install final SSH key
+      authorized_key:
+        user: "{{ user }}"
+        key: "{{ final_ssh_pubkey }}"
+        state: present
