@@ -39,16 +39,8 @@
              if arch == 'armhf' else
              'https://download.docker.com/linux/debian/gpg' }}
 
-    - name: Download Docker GPG key (ASCII format)
-      get_url:
-        url: https://download.docker.com/linux/debian/gpg
-        dest: /tmp/docker.gpg
-        mode: '0644'
-      register: docker_gpg_temp
-
-    - name: Convert Docker GPG key to binary format (dearmor)
-      command: >
-        gpg --dearmor -o "{{ docker_gpg_key_path }}" /tmp/docker.gpg
+    - name: Download Docker GPG key
+      shell: curl -fsSL "{{ docker_gpg_url }}" | gpg --dearmor -o "{{ docker_gpg_key_path }}"
       args:
         creates: "{{ docker_gpg_key_path }}"
     - name: Ensure Keyring Permissions
@@ -57,12 +49,6 @@
         mode: '0644'
         owner: root
         group: root
-
-    - name: Clean up temporay Docker GPG file
-      file:
-        path: /tmp/docker.gpg
-        state: absent
-      when: docker _gpg_temp is changed
 
     - name: Set OS codename from Ansible facts
       set_fact:
