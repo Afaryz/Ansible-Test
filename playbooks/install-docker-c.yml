@@ -23,11 +23,13 @@
         path: /etc/apt/keyrings
         state: directory
         mode: '0755'
+        owner: root
+        group: root
 
     - name: Detect system architecture
       set_fact:
         arch: "{{ 'armhf' if ansible_architecture == 'armv7l' else 'arm64' }}"
-    - name: Detect system architecture
+    - name: Debug system architecture
       debug:
         msg: "{{ 'armhf' if ansible_architecture == 'armv7l' else 'arm64' }}"
     - name: Set GPG URL based on architecture
@@ -37,10 +39,30 @@
              if arch == 'armhf' else
              'https://download.docker.com/linux/debian/gpg' }}
 
-    - name: Download Docker GPG key
-      shell: curl -fsSL "{{ docker_gpg_url }}" | gpg --dearmor -o "{{ docker_gpg_key_path }}"
+    - name: Download Docker GPG key (ASCII format)
+      get_url:
+        url: https://download.docker.com/linux/debian/gpg
+        dest: /tmp/docker.gpg
+        mode: '0644'
+      register: docker_gpg_temp
+
+    - name: Convert Docker GPG key to binary format (dearmor)
+      command: >
+        gpg --dearmor -o /etc/apt/keyrings/docker.asc /tmp/docker.gpg
       args:
-        creates: "{{ docker_gpg_key_path }}"
+        creates: /etc/apt/keyrings/docker.asc
+    - name: Ensure Keyring Permissions
+      file:
+        path: "{{ docker_apt_source_path }}"
+        mode: '0644'
+        owner: root
+        group: root
+
+    - name: Clean up temporay Docker GPG file
+      file:
+        path: /tmp/docker.gpg
+        state: absent
+      when: docker _gpg_temp is changed
 
     - name: Set OS codename from Ansible facts
       set_fact:
@@ -54,10 +76,7 @@
         dest: "{{ docker_apt_source_path }}"
         content: |
           deb [arch={{ arch }} signed-by={{ docker_gpg_key_path }}] https://download.docker.com/linux/{{ 'raspbian' if arch == 'armhf' else 'debian' }} {{ os_codename }} stable
-    - name: Ensure Keyring Permissions
-      file:
-        path: "{{ docker_apt_source_path }}"
-        mode: '0644'
+    
         
     - name: Debug Docker APT repository
       debug:
