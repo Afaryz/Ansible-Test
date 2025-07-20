@@ -40,16 +40,15 @@
       args:
         creates: "{{ docker_gpg_key_path }}"
 
-    - name: Get OS codename
-      command: bash -c '. /etc/os-release && echo $VERSION_CODENAME'
-      register: os_codename
-      changed_when: false
+    - name: Set OS codename from Ansible facts
+      set_fact:
+        os_codename: "{{ ansible_lsb.codename }}"
 
     - name: Add Docker APT repository
       copy:
         dest: "{{ docker_apt_source_path }}"
         content: |
-          deb [arch={{ arch }} signed-by={{ docker_gpg_key_path }}] https://download.docker.com/linux/{{ 'raspbian' if arch == 'armhf' else 'debian' }} {{ os_codename.stdout }} stable
+          deb [arch={{ arch }} signed-by={{ docker_gpg_key_path }}] https://download.docker.com/linux/{{ 'raspbian' if arch == 'armhf' else 'debian' }} {{ os_codename }} stable
 
     - name: Update apt cache
       apt:
@@ -61,6 +60,7 @@
           - docker-ce
           - docker-ce-cli
           - containerd.io
+          - docker-buildx-plugin
           - docker-compose-plugin
         state: present
 
