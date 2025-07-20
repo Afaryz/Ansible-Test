@@ -38,17 +38,25 @@
           {{ 'https://download.docker.com/linux/raspbian/gpg'
              if arch == 'armhf' else
              'https://download.docker.com/linux/debian/gpg' }}
-
-    - name: Download Docker GPG key
-      shell: curl -fsSL "{{ docker_gpg_url }}" | gpg --dearmor -o "{{ docker_gpg_key_path }}"
-      args:
-        creates: "{{ docker_gpg_key_path }}"
-    - name: Ensure Keyring Permissions
-      file:
-        path: "{{ docker_gpg_key_path }}"
+    - name: Download Docker GPG key directly to keyring path
+      get_url:
+        url: "{{ docker_gpg_url }}"
+        dest: "{{ docker_gpg_key_path }}"
         mode: '0644'
         owner: root
         group: root
+
+    #- name: Download Docker GPG key
+    #  shell: curl -fsSL "{{ docker_gpg_url }}" | gpg --dearmor -o "{{ docker_gpg_key_path }}"
+    #  args:
+    
+    #   creates: "{{ docker_gpg_key_path }}"
+    #- name: Ensure Keyring Permissions
+    #  file:
+    #    path: "{{ docker_gpg_key_path }}"
+    #    mode: '0644'
+    #    owner: root
+    #    group: root
 
     - name: Set OS codename from Ansible facts
       set_fact:
