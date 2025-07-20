@@ -99,7 +99,7 @@
 
     - name: Add executing user to docker group
       user:
-        name: "{{ ansible_user_id }}"
+        name: "{{ ansible_user }}"
         groups: docker
         append: yes
       register: docker_group_add
@@ -107,5 +107,5 @@
     - name: Notify about required relogin
       debug:
         msg: >
-          User '{{ ansible_user_id }}' was added to 'docker' group. Please re-login for group membership to take effect.
+          User '{{ ansible_user }}' was added to 'docker' group. Please re-login for group membership to take effect.
       when: docker_group_add.changed
