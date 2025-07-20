@@ -43,16 +43,18 @@
     - name: Set OS codename from Ansible facts
       set_fact:
         os_codename: "{{ ansible_lsb.codename }}"
+    - name: Debug OS codename
       debug:
-        msg: "{{ ansible_lsb.codename }}"
+        msg: "Detected codename: {{ os_codename }}"
 
     - name: Add Docker APT repository
       copy:
         dest: "{{ docker_apt_source_path }}"
         content: |
           deb [arch={{ arch }} signed-by={{ docker_gpg_key_path }}] https://download.docker.com/linux/{{ 'raspbian' if arch == 'armhf' else 'debian' }} {{ os_codename }} stable
-        debug:
-          msg: "deb [arch={{ arch }} signed-by={{ docker_gpg_key_path }}] https://download.docker.com/linux/{{ 'raspbian' if arch == 'armhf' else 'debian' }} {{ os_codename }} stable"
+    - name: Debug Docker APT repository
+      debug:
+        msg: "deb [arch={{ arch }} signed-by={{ docker_gpg_key_path }}] https://download.docker.com/linux/{{ 'raspbian' if arch == 'armhf' else 'debian' }} {{ os_codename }} stable"
 
     - name: Update apt cache
       apt:
