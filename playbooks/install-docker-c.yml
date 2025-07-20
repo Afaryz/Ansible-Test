@@ -50,7 +50,7 @@
       command: >
         gpg --dearmor -o /etc/apt/keyrings/docker.asc /tmp/docker.gpg
       args:
-        creates: /etc/apt/keyrings/docker.asc
+        creates: "{{ docker_apt_source_path }}"
     - name: Ensure Keyring Permissions
       file:
         path: "{{ docker_apt_source_path }}"
