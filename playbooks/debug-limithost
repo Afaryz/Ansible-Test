@@ -5,7 +5,7 @@
   tasks:
     - name: Ausgabe eines Country
       debug:
-        msg: "{{ Country }} "
+        msg: "{{ country }} "
 
     - name: Ausgabe Hostname und BUKR
       debug:
