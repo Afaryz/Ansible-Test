@@ -1,0 +1,83 @@
+---
+- name: Install Docker on Raspberry Pi (32/64-bit)
+  hosts: all
+  become: true
+  vars:
+    docker_gpg_key_path: /etc/apt/keyrings/docker.asc
+    docker_apt_source_path: /etc/apt/sources.list.d/docker.list
+
+  tasks:
+    - name: Ensure required packages are installed
+      apt:
+        name:
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - gnupg
+          - lsb-release
+        state: present
+        update_cache: yes
+
+    - name: Create keyrings directory if not exists
+      file:
+        path: /etc/apt/keyrings
+        state: directory
+        mode: '0755'
+
+    - name: Detect system architecture
+      set_fact:
+        arch: "{{ 'armhf' if ansible_architecture == 'armv7l' else 'arm64' }}"
+
+    - name: Set GPG URL based on architecture
+      set_fact:
+        docker_gpg_url: >-
+          {{ 'https://download.docker.com/linux/raspbian/gpg'
+             if arch == 'armhf' else
+             'https://download.docker.com/linux/debian/gpg' }}
+
+    - name: Download Docker GPG key
+      shell: curl -fsSL "{{ docker_gpg_url }}" | gpg --dearmor -o "{{ docker_gpg_key_path }}"
+      args:
+        creates: "{{ docker_gpg_key_path }}"
+
+    - name: Get OS codename
+      command: bash -c '. /etc/os-release && echo $VERSION_CODENAME'
+      register: os_codename
+      changed_when: false
+
+    - name: Add Docker APT repository
+      copy:
+        dest: "{{ docker_apt_source_path }}"
+        content: |
+          deb [arch={{ arch }} signed-by={{ docker_gpg_key_path }}] https://download.docker.com/linux/{{ 'raspbian' if arch == 'armhf' else 'debian' }} {{ os_codename.stdout }} stable
+
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+
+    - name: Install Docker packages
+      apt:
+        name:
+          - docker-ce
+          - docker-ce-cli
+          - containerd.io
+          - docker-compose-plugin
+        state: present
+
+    - name: Ensure docker group exists
+      group:
+        name: docker
+        state: present
+
+    - name: Add executing user to docker group
+      user:
+        name: "{{ ansible_user_id }}"
+        groups: docker
+        append: yes
+      register: docker_group_add
+
+    - name: Notify about required relogin
+      debug:
+        msg: >
+          User '{{ ansible_user_id }}' was added to 'docker' group. Please re-login for group membership to take effect.
+      when: docker_group_add.changed
