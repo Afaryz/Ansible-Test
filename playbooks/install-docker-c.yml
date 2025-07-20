@@ -29,7 +29,7 @@
         arch: "{{ 'armhf' if ansible_architecture == 'armv7l' else 'arm64' }}"
     - name: Detect system architecture
       debug:
-        msg:: "{{ 'armhf' if ansible_architecture == 'armv7l' else 'arm64' }}"
+        msg: "{{ 'armhf' if ansible_architecture == 'armv7l' else 'arm64' }}"
     - name: Set GPG URL based on architecture
       set_fact:
         docker_gpg_url: >-
