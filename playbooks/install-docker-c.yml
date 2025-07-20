@@ -61,7 +61,9 @@
       copy:
         dest: "{{ docker_apt_source_path }}"
         content: |
-          deb [arch={{ arch }} signed-by={{ docker_gpg_key_path }}] https://download.docker.com/linux/{{ 'raspbian' if arch == 'armhf' else 'debian' }} {{ os_codename }} stable
+          deb [arch=arm64 signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/debian   bookworm stable
+      #  content: |
+      #    deb [arch={{ arch }} signed-by={{ docker_gpg_key_path }}] https://download.docker.com/linux/{{ 'raspbian' if arch == 'armhf' else 'debian' }} {{ os_codename }} stable
     
         
     - name: Debug Docker APT repository
