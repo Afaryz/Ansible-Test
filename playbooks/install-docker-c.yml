@@ -53,7 +53,7 @@
         creates: "{{ docker_apt_source_path }}"
     - name: Ensure Keyring Permissions
       file:
-        path: "{{ docker_apt_source_path }}"
+        path: docker_gpg_key_path
         mode: '0644'
         owner: root
         group: root
