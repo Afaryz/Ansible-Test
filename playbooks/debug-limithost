@@ -1,0 +1,12 @@
+---
+- name: Einfacher Test of --limit in Task Template
+  hosts: all
+
+  tasks:
+    - name: Ausgabe eines Country
+      debug:
+        msg: "{{ Country }} "
+
+    - name: Ausgabe Hostname und BUKR
+      debug:
+        msg: "Ich bin {{ inventory_hostname }} mit node={{ node }} !"
