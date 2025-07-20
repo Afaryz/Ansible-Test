@@ -27,7 +27,9 @@
     - name: Detect system architecture
       set_fact:
         arch: "{{ 'armhf' if ansible_architecture == 'armv7l' else 'arm64' }}"
-
+    - name: Detect system architecture
+      debug:
+        msg:: "{{ 'armhf' if ansible_architecture == 'armv7l' else 'arm64' }}"
     - name: Set GPG URL based on architecture
       set_fact:
         docker_gpg_url: >-
@@ -52,6 +54,11 @@
         dest: "{{ docker_apt_source_path }}"
         content: |
           deb [arch={{ arch }} signed-by={{ docker_gpg_key_path }}] https://download.docker.com/linux/{{ 'raspbian' if arch == 'armhf' else 'debian' }} {{ os_codename }} stable
+    - name: Ensure Keyring Permissions
+      file:
+        path: "{{ docker_apt_source_path }}"
+        mode: '0644'
+        
     - name: Debug Docker APT repository
       debug:
         msg: "deb [arch={{ arch }} signed-by={{ docker_gpg_key_path }}] https://download.docker.com/linux/{{ 'raspbian' if arch == 'armhf' else 'debian' }} {{ os_codename }} stable"
