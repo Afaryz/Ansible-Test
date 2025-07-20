@@ -48,7 +48,7 @@
 
     - name: Convert Docker GPG key to binary format (dearmor)
       command: >
-        gpg --dearmor -o /etc/apt/keyrings/docker.asc /tmp/docker.gpg
+        gpg --dearmor -o "{{ docker_apt_source_path }}" /tmp/docker.gpg
       args:
         creates: "{{ docker_apt_source_path }}"
     - name: Ensure Keyring Permissions
