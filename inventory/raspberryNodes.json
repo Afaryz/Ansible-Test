@@ -1,6 +1,6 @@
 {
     "_meta": {
-        "hostvars": {
+        "vars": {
       "rbpcm-node-1": {
         "node": "1",
         "country": "de"
@@ -24,6 +24,14 @@
             "ungrouped"
         ]
     },
+     "ungrouped": {
+    "hosts": [
+      "rbpcm-node-1",
+      "rbpcm-node-2",
+      "rbpcm-node-3",
+      "rbpcm-node-4"
+    ]
+  },
     "group_100": {
     "hosts": ["rbpcm-node-1"]
   }
