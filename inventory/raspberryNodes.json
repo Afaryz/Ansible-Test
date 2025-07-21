@@ -1,0 +1,30 @@
+{
+    "_meta": {
+        "hostvars": {
+      "rbpcm-node-1": {
+        "node": "1",
+        "country": "de"
+      },
+      "rbpcm-node-2": {
+        "node": "2",
+        "country": "de"
+      },
+      "rbpcm-node-3": {
+        "node": "3",
+        "country": "at"
+      },
+      "rbpcm-node-4": {
+        "node": "4",
+        "country": "de"
+      }
+    }
+    },
+    "all": {
+        "children": [
+            "ungrouped"
+        ]
+    },
+    "group_100": {
+    "hosts": ["rbpcm-node-1"]
+  }
+}
