@@ -1,0 +1,13 @@
+---
+- name: Zeige laufende Docker-Container
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Liste alle laufenden Docker-Container (wie docker ps)
+      community.docker.docker_host_info:
+        containers: true
+      register: docker_info
+
+    - name: Ausgabe der laufenden Container
+      debug:
+        msg: "{{ docker_info.containers | map(attribute='Names') | list }}"
