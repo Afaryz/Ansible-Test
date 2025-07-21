@@ -6,3 +6,27 @@
     }
   }
 }
+{
+  "all": {
+    "hosts": {
+      "rbpcm-node-01": null,
+      "rbpcm-node-02": null,
+      "rbpcm-node-03": null,
+      "rbpcm-node-04": null
+    },
+    "children": {
+      "group_100": {
+        "hosts": {
+          "rbpcm-node-01": null
+        }
+      },
+      "de": {
+        "hosts": {
+          "rbpcm-node-01": null,
+          "rbpcm-node-02": null,
+          "rbpcm-node-03": null
+        }
+      }
+    }
+  }
+}
