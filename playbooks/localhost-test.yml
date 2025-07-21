@@ -10,4 +10,16 @@
     - name: Output whoami
       debug:
         msg: "Der Benutzer ist: {{ whoami_output.stdout }}"
+- name: "Test um Dinge wie Webhooks, CMDB Einträge etc. zu auszuführen"
+  hosts: localhost
+  become: true
+  tasks:
+    - name: Führe whoami aus
+      command: whoami
+      register: whoami_output
+
+    - name: Output whoami
+      debug:
+        msg: "Der Benutzer ist: {{ whoami_output.stdout }}"
+
 
