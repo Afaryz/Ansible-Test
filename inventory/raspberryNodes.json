@@ -1,6 +1,6 @@
 {
     "_meta": {
-        "vars": {
+        "hostvars": {
       "rbpcm-node-1": {
         "node": "1",
         "country": "de"
