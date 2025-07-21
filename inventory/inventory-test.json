@@ -4,7 +4,10 @@
       "rbpcm-node-01": null,
       "rbpcm-node-02": null,
       "rbpcm-node-03": null,
-      "rbpcm-node-04": null
+      "rbpcm-node-04": {
+        "country": "de",
+        "node": "4"
+    }
     },
     "children": {
       "group_100": {
