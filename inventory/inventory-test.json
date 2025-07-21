@@ -16,10 +16,10 @@
       "rbpcm-node-4": {
         "country": "de",
         "node": "4"
-    },
-    "vars":{
-      "ansible_python_interpreter": "/usr/bin/python3.11"
     }
+    },
+    "vars": {
+      "interpreter_python" : "/usr/bin/python3.11"
     },
     "children": {
       "group_100": {
