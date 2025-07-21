@@ -1,10 +1,19 @@
 {
   "all": {
     "hosts": {
-      "rbpcm-node-01": null,
-      "rbpcm-node-02": null,
-      "rbpcm-node-03": null,
-      "rbpcm-node-04": {
+      "rbpcm-node-1": {
+        "country": "de",
+        "node": "1"
+    },
+      "rbpcm-node-2": {
+        "country": "de",
+        "node": "2"
+    },
+      "rbpcm-node-3": {
+        "country": "at",
+        "node": "3"
+    },
+      "rbpcm-node-4": {
         "country": "de",
         "node": "4"
     }
@@ -12,14 +21,30 @@
     "children": {
       "group_100": {
         "hosts": {
-          "rbpcm-node-01": null
+          "rbpcm-node-1": null
+        }
+      },
+      "group_200": {
+        "hosts": {
+          "rbpcm-node-2": null
+        }
+      },
+      "group_300": {
+        "hosts": {
+          "rbpcm-node-3": null,
+          "rbpcm-node-4": null
         }
       },
       "de": {
         "hosts": {
-          "rbpcm-node-01": null,
-          "rbpcm-node-02": null,
-          "rbpcm-node-03": null
+          "rbpcm-node-1": null,
+          "rbpcm-node-2": null,
+          "rbpcm-node-4": null
+        }
+      },
+      "at": {
+        "hosts": {
+          "rbpcm-node-3": null
         }
       }
     }
