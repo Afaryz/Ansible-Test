@@ -1,0 +1,51 @@
+{
+  "_meta": {
+    "hostvars": {
+      "rbpcm-node-1": {
+        "node": "1",
+        "country": "de"
+      },
+      "rbpcm-node-2": {
+        "node": "2",
+        "country": "de"
+      },
+      "rbpcm-node-3": {
+        "node": "3",
+        "country": "at"
+      },
+      "rbpcm-node-4": {
+        "node": "4",
+        "country": "de"
+      }
+    }
+  },
+  "ungrouped": {
+    "hosts": [
+      "rbpcm-node-1",
+      "rbpcm-node-2",
+      "rbpcm-node-3",
+      "rbpcm-node-4"
+    ]
+  },
+  "group_100": {
+    "hosts": ["rbpcm-node-1"]
+  },
+  "group_200": {
+    "hosts": ["rbpcm-node-2"]
+  },
+  "group_300": {
+    "hosts": ["rbpcm-node-3", "rbpcm-node-4"]
+  },
+  "de": {
+    "hosts": ["rbpcm-node-1", "rbpcm-node-2", "rbpcm-node-4"]
+  },
+  "at": {
+    "hosts": ["rbpcm-node-3"]
+  },
+  "gerade": {
+    "hosts": ["rbpcm-node-2", "rbpcm-node-4"]
+  },
+  "ungerade": {
+    "hosts": ["rbpcm-node-1", "rbpcm-node-3"]
+  }
+}
