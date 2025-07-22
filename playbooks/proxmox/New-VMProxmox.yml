@@ -35,34 +35,14 @@
         bios: ovmf
         #BIOS Type
         #smbios
+        #EFI Disk
         efidisk0:
           storage: local-lvm
           format: raw
           efitype: 4m
-          pre_enrolled_keys: false
-      #  scsi:
-      #    scsi0: 'local_lvm:10, format=raw'
+          pre_enrolled_keys: true
         update: "{{ Update }}"
-        # CPU/RAM
-        #cores: 2
-        #memory: 4096
-
-        # Nur eine leere Festplatte anlegen
-        #scsi0: "{{ storage }}:{{ disk_size }}"
-
-        # Netzwerkkarte
-        #net0: "virtio,bridge=vmbr0"
-
-        # Boot-Reihenfolge ausschliesslich Netzwerk
-       # boot: "order=net0"
-
-        # UEFI + OVMF für PXE (Windows-Legacy/PXE)
-      #  machine: "q35"
-       # bios: "ovmf"
-
-        # kein ISO, kein Template
-       # state: present
-       # timeout: 600
+        
     - name: Konfiguriere Disks 
       delegate_to: localhost
       community.proxmox.proxmox_disk:
