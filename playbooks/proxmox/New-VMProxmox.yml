@@ -32,19 +32,19 @@
         scsihw: virtio-scsi-single
         #Disk Konfiguration
         scsi:
-          scsi0: '{{ "storage" }}:10,format=raw'
+          scsi0: '"{{ storage }}":10,format=raw'
         #BIOS UEFI
         bios: ovmf
         #BIOS Type
         #smbios
         #EFI Disk
         efidisk0:
-          storage: {{ "storage" }}
+          storage: "{{ storage }}"
           format: raw
           efitype: 4m
           pre_enrolled_keys: true
         tpmstate0:
-          storage: {{ "storage" }}
+          storage: "{{ storage }}"
           version: 2.0
         #localtime: true # no need ostype = win11 
         protection: true #Enable/disable the protection flag of the VM. This will enable/disable the remove VM and remove disk operations
