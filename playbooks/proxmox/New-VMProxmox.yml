@@ -51,7 +51,7 @@
         protection: true #Enable/disable the protection flag of the VM. This will enable/disable the remove VM and remove disk operations
         startdate: now
         boot: "order=scsi0; net0"
-        bookdisk: scsi0
+        bootdisk: scsi0
         onboot: true
         update: "{{ Update }}"
         
