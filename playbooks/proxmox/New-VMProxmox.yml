@@ -21,7 +21,18 @@
         node: "{{ node }}"
         vmid: "{{ new_vmid }}"
         name: "{{ vm_name }}"
-
+        net:
+          net0: 'virtio,bridge=vmbr1,rate=200'
+        cores: 4
+        vcpus: 1
+        bios: ovmf
+        efidisk0:
+          storage: local_lvm
+          format: raw
+          efitype: 4m
+          pre_enrolley_keys: true
+        scsi:
+          scsi0: 'local_lvm:10, format=raw'
         # CPU/RAM
         #cores: 2
         #memory: 4096
