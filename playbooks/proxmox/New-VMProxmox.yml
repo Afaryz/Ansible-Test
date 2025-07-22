@@ -32,7 +32,8 @@
           efitype: 4m
           pre_enrolled_keys: false
         scsi:
-          scsi0: 'local_lvm:10, format=raw'
+          - scsi0: 'local_lvm:10, format=raw'
+        update: "{{ Update }}"
         # CPU/RAM
         #cores: 2
         #memory: 4096
