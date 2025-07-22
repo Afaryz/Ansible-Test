@@ -1,0 +1,17 @@
+- name: Create a Proxmox container
+  hosts: all
+  gather_facts: false
+  tasks:
+
+  - name: Create new container with minimal options
+    vars:
+      ansible_python_interpreter: /usr/bin/python3
+    community.general.proxmox:
+      vmid: 100
+      node: pve-staging
+      api_user: root@pam
+    #  api_password: "{{ pm_api_password }}"
+      api_host: "{{ inventory_hostname }}"
+      password: {{ root_pw }}
+      name: vmtest1
+#    ostemplate: "local:vztmpl/ubuntu-14.04-x86_64.tar.gz"
