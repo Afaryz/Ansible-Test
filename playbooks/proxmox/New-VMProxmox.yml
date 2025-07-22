@@ -23,8 +23,8 @@
         name: "{{ vm_name }}"
         net:
           net0: 'virtio,bridge=vmbr1,rate=200'
+        cpu: "{{ cpu }}"
         cores: 4
-        vcpus: 1
         memory: 4096
         shares: 0 #Disable Auto-Balloning
         ostype: win11
