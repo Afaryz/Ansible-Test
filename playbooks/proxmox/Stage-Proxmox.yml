@@ -4,9 +4,10 @@
   tasks:
 
   - name: Create new container with minimal options
+    delegate_to: localhost #Modul wird lokal ausgeführt
 #    vars:
 #      ansible_python_interpreter: /usr/bin/python3
-    proxmox:
+    community.proxmox.proxmox:
       vmid: 100
       node: pve-staging
       api_user: root@pam
