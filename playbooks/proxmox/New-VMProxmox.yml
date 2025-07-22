@@ -25,10 +25,16 @@
           net0: 'virtio,bridge=vmbr1,rate=200'
         cores: 4
         vcpus: 1
+        memory: 4096
+        #scsi Hardware Controller
         scsihw: virtio-scsi-single
+        #Disk Konfiguration
         scsi:
           scsi0: 'local-lvm:10,format=raw'
+        #BIOS UEFI
         bios: ovmf
+        #BIOS Type
+        #smbios
         efidisk0:
           storage: local-lvm
           format: raw
@@ -57,3 +63,18 @@
         # kein ISO, kein Template
        # state: present
        # timeout: 600
+    - name: Konfiguriere Disks 
+      delegate_to: localhost
+      community.proxmox.proxmox_disk:
+        api_user: root@pam
+        api_password: "{{ root_pw }}"
+        api_host: "{{ inventory_hostname }}"
+        #password: "{{ root_pw }}"
+        node: "{{ node }}"
+        vmid: "{{ new_vmid }}"
+        disk: scsi0
+        backup: true
+        cache: writeback
+        ro: true
+        aio: threads
+        state: present
