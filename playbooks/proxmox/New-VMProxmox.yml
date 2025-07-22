@@ -53,7 +53,10 @@
         boot: "order=scsi0; net0"
         bootdisk: scsi0
         onboot: true
-        update: "{{ Update }}"
+        update: "{{ Update }}" 
+        #If true, the VM will be updated with new value.
+        #Because of the operations of the API and security reasons, I have disabled the update of the following parameters net, virtio, ide, sata, scsi. 
+        #Per example updating net update the MAC address and virtio create always new disk... This security feature can be disabled by setting the update_unsafe to true.
         
     - name: Konfiguriere Disks 
       delegate_to: localhost
