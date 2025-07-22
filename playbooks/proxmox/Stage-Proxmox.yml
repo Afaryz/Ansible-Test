@@ -13,5 +13,5 @@
       api_password: "{{ root_pw }}"
       api_host: "{{ inventory_hostname }}"
       password: "{{ root_pw }}"
-      name: vmtest1
+      hostname: vmtest1
 #    ostemplate: "local:vztmpl/ubuntu-14.04-x86_64.tar.gz"
