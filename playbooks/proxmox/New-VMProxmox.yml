@@ -25,8 +25,9 @@
           net0: 'virtio,bridge=vmbr1,rate=200'
         cores: 4
         vcpus: 1
-        sata:
-          sata0: 'local-lvm:10,format=raw'
+        scsihw: virtio-scsi-single
+        scsi:
+          scsi0: 'local-lvm:10,format=raw'
         bios: ovmf
         efidisk0:
           storage: local-lvm
