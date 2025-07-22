@@ -1,0 +1,44 @@
+- name: Leere VM für PXE-Boot anlegen
+  hosts: all
+  gather_facts: false
+
+  vars:
+    node: pve-staging
+    new_vmid: 110
+    vm_name: "win-pxe-{{ new_vmid }}"
+    storage: "local-lvm"
+    disk_size: "20G"
+
+  tasks:
+    - name: PXE-VM erstellen (nur Shell)
+      delegate_to: localhost
+      community.proxmox.proxmox_kvm:
+        #api_host: "{{ node }}"
+        api_user: root@pam
+        api_password: "{{ root_pw }}"
+        api_host: "{{ inventory_hostname }}"
+        password: "{{ root_pw }}"
+        node: "{{ node }}"
+        vmid: "{{ new_vmid }}"
+        name: "{{ vm_name }}"
+
+        # CPU/RAM
+        cores: 2
+        memory: 4096
+
+        # Nur eine leere Festplatte anlegen
+        scsi0: "{{ storage }}:{{ disk_size }}"
+
+        # Netzwerkkarte
+        net0: "virtio,bridge=vmbr0"
+
+        # Boot-Reihenfolge ausschliesslich Netzwerk
+        boot: "order=net0"
+
+        # UEFI + OVMF für PXE (Windows-Legacy/PXE)
+        machine: "q35"
+        bios: "ovmf"
+
+        # kein ISO, kein Template
+        state: present
+        timeout: 600
