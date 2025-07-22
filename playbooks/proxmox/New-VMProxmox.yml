@@ -17,7 +17,7 @@
         api_user: root@pam
         api_password: "{{ root_pw }}"
         api_host: "{{ inventory_hostname }}"
-        password: "{{ root_pw }}"
+        #password: "{{ root_pw }}"
         node: "{{ node }}"
         vmid: "{{ new_vmid }}"
         name: "{{ vm_name }}"
