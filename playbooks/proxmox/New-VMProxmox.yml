@@ -25,14 +25,16 @@
           net0: 'virtio,bridge=vmbr1,rate=200'
         cores: 4
         vcpus: 1
+        sata:
+          sata0: 'local_lvm:10,format=raw'
         bios: ovmf
         efidisk0:
           storage: local_lvm
           format: raw
           efitype: 4m
           pre_enrolled_keys: false
-        scsi:
-          - scsi0: 'local_lvm:10, format=raw'
+      #  scsi:
+      #    scsi0: 'local_lvm:10, format=raw'
         update: "{{ Update }}"
         # CPU/RAM
         #cores: 2
