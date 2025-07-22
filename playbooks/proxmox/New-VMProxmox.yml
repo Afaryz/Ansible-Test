@@ -30,7 +30,7 @@
           storage: local_lvm
           format: raw
           efitype: 4m
-          pre_enrolley_keys: true
+          pre_enrolled_keys: false
         scsi:
           scsi0: 'local_lvm:10, format=raw'
         # CPU/RAM
