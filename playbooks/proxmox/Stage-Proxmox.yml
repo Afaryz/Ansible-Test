@@ -6,11 +6,11 @@
   - name: Create new container with minimal options
     vars:
       ansible_python_interpreter: /usr/bin/python3
-    community.proxmox:
+    proxmox:
       vmid: 100
       node: pve-staging
       api_user: root@pam
-    #  api_password: "{{ pm_api_password }}"
+      api_password: "{{ root_pw }}"
       api_host: "{{ inventory_hostname }}"
       password: "{{ root_pw }}"
       name: vmtest1
