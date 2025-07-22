@@ -26,10 +26,10 @@
         cores: 4
         vcpus: 1
         sata:
-          sata0: 'local_lvm:10,format=raw'
+          sata0: 'local-lvm:10,format=raw'
         bios: ovmf
         efidisk0:
-          storage: local_lvm
+          storage: local-lvm
           format: raw
           efitype: 4m
           pre_enrolled_keys: false
