@@ -16,7 +16,7 @@
       changed_when: "'created' in vgcreate_result.stdout"
 
     - name: Erstelle LVM-Thin-Pool
-      command: lvcreate --thinpool {{ thinpool_name }} --size 90%VG {{ vg_name }}
+      command: lvcreate --name {{ thinpool_name }} -l +90FREE {{ vg_name }}
       register: lvcreate_result
       failed_when: "'exists' not in lvcreate_result.stderr and lvcreate_result.rc != 0"
       changed_when: "'created' in lvcreate_result.stdout"
