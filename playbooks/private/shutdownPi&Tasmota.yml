@@ -16,9 +16,9 @@
       poll: 0
       when: tasmota_command == 'Power%20off'
 
-    - name: Wait 5 minutes to shutdown
+    - name: Wait 1 minutes to shutdown
       ansible.builtin.pause:
-        minutes: 5
+        minutes: 1
       when: tasmota_command == 'Power%20off'
   
 - name: Schalte Tasmota Steckdose ein/aus
