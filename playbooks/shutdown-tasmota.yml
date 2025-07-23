@@ -1,0 +1,24 @@
+---
+- name: Schalte Tasmota Steckdose aus
+  hosts: localhost
+  gather_facts: false
+  #vars:
+    #tasmota_ip: "192.168.1.100"       # IP der Steckdose
+    #tasmota_user: "admin"             # Benutzername
+    #tasmota_password: "geheim"        # Passwort
+    #tasmota_command: "Power%20off"    # URL-Encoded Befehl
+
+  tasks:
+    - name: Steckdose ausschalten über HTTP API
+      uri:
+        url: "http://{{ tasmota_ip }}/cm?cmnd={{ tasmota_command }}"
+        method: GET
+        user: "{{ tasmota_user }}"
+        password: "{{ tasmota_password }}"
+        force_basic_auth: yes
+        return_content: yes
+      register: result
+
+    - name: Ausgabe des Tasmota-Antwort
+      debug:
+        var: result.content
