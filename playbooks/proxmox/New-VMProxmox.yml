@@ -22,7 +22,7 @@
         vmid: "{{ new_vmid }}"
         name: "{{ vm_name }}"
         net:
-          net0: 'virtio,bridge=vmbr1,rate=200'
+          net0: 'virtio,bridge=vmbr0'
         cpu: "{{ cpu }}"
         cores: 4
         memory: 4096
