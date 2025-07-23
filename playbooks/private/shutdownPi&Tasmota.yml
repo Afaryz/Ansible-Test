@@ -1,0 +1,42 @@
+---
+- name: Shutdown target machines safely
+  hosts: all
+  become: true
+  gather_facts: false
+  when: tasmota_command == 'Power%20off'
+  tasks:
+    - name: Notify about upcoming shutdown
+      debug:
+        msg: "Shutting down host {{ inventory_hostname }}..."
+
+
+    - name: Shutdown the system
+      command: shutdown -h now
+      async: 1
+      poll: 0
+    
+    - name: Wait 5 minutes to shutdown
+      ansible.builtin.pause:
+        minutes: 5
+  
+- name: Schalte Tasmota Steckdose ein/aus
+  hosts: localhost
+  gather_facts: false
+
+  tasks:
+    - name: Steckdose Command über HTTP API
+      uri:
+        url: "http://{{ tasmota_ip }}/cm?cmnd={{ tasmota_command }}"
+        method: GET
+        user: "{{ tasmota_user }}"
+        password: "{{ tasmota_password }}"
+        force_basic_auth: yes
+        return_content: yes
+      register: result
+
+    - name: Ausgabe des Tasmota-Antwort
+      debug:
+        var: result.content
+
+    
+      
