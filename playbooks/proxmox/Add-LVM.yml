@@ -4,7 +4,7 @@
   become: true
   vars: 
     vg_name: vm_data
-    thinpoolname_name: thinpool
+    thinpoolname: thinpool
     device: /dev/sdb
     storage_name: vm-data
   
