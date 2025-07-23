@@ -1,0 +1,14 @@
+- name: ISO und Checksumme holen & prüfen
+  hosts: all
+  become: yes
+  vars:
+    virtio_checksum: "bbe6166ad86a490caefad438fef8aa494926cb0a1b37fa1212925cfd81656429"
+    virtio_name: virtio-win-0.1.271
+  tasks:
+    - name: ISO-Datei herunterladen
+      get_url:
+        url: https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/archive-virtio/"{{ virtio_name }}"-1/"{{ virtio_name }}".iso
+        dest: /var/lib/vz/template/iso/"{{ virtio_name }}"
+        checksum: "sha256:{{ virtio_checksum }}"
+
+  
