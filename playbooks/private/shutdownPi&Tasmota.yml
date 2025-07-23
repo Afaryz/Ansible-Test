@@ -39,6 +39,19 @@
     - name: Ausgabe des Tasmota-Antwort
       debug:
         var: result.content
+    
+
+- name: Checking if Boot was successful
+  hosts: all
+  become: true
+  gather_facts: false
+  
+  tasks:
+    - name: Wait for system to become reachable
+      ansible.builtin.wait_for_connection:
+        timeout: 900
+      when: tasmota_command == 'Power%20on'
+
 
     
       
