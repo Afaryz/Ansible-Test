@@ -1,0 +1,37 @@
+---
+- name: Setup LVM-Thin auf /dev/sdb in Proxmox
+  hosts: all
+  become: true
+  vars: 
+    vg_name: vm_data
+    thinpoolname_name: thinpool
+    device: /dev/sdb
+    storage_name: vm-data
+  
+  tasks:
+    - name: Erstelle neue Volume
+      command: vgcreate {{ vg_name}} {{ device}}
+      register: vgcreate_result
+      failed_when: "'already exists' not in vgcreate_result.stderr and vgcreate_result.rc != 0"
+      changed_when: "'created' in vgcreate_result.stdout"
+
+    - name: Erstelle LVM-Thin-Pool
+      command: lvcreate --thinpool {{ thinpool_name }} --size 90%VG {{ vg_name }}
+      register: lvcreate_result
+      failed_when: "'exists' not in lvcreate_result.stderr and lvcreate_result.rc != 0"
+      changed_when: "'created' in lvcreate_result.stdout"
+    
+    - name: Füge LVM-Thin Storage in Proxmox hinzu
+      shell: |
+        pvesm add lvmthin {{ storage_name }} --vgname {{ vg_name }} --thinpool {{ thinpool_name }} --content rootdir,images
+      args:
+        creates: "/etc/pve/storage.cfg"
+      register: pvesm_add
+      failed_when: pvesm_add.rc != 0 and 'already exists' not in pvesm_add.stderr
+
+    - name: Liste neue Storage-Definition
+      command: pvesm status
+      register: pvesm_status
+
+    - debug:
+        var: pvesm_status.stdout
