@@ -58,7 +58,7 @@
         #Because of the operations of the API and security reasons, I have disabled the update of the following parameters net, virtio, ide, sata, scsi. 
         #Per example updating net update the MAC address and virtio create always new disk... This security feature can be disabled by setting the update_unsafe to true.
         
-    - name: Konfiguriere Disks 
+    - name: Konfiguriere Disks scsi0 - 'C:'
       delegate_to: localhost
       community.proxmox.proxmox_disk:
         api_user: root@pam
@@ -70,4 +70,32 @@
         cache: writeback
         discard: on
         ro: false #ReadOnly
+        state: present
+    - name: Konfiguriere Disks scsi1 'D :'
+      delegate_to: localhost
+      community.proxmox.proxmox_disk:
+        api_user: root@pam
+        api_password: "{{ root_pw }}"
+        api_host: "{{ inventory_hostname }}"
+        vmid: "{{ new_vmid }}"
+        disk: scsi1
+        backup: true
+        cache: writeback
+        discard: on
+        ro: false #ReadOnly
+        size: 10
+        state: present
+    - name: Konfiguriere Disks scsi2 'E :'
+      delegate_to: localhost
+      community.proxmox.proxmox_disk:
+        api_user: root@pam
+        api_password: "{{ root_pw }}"
+        api_host: "{{ inventory_hostname }}"
+        vmid: "{{ new_vmid }}"
+        disk: scsi2
+        backup: false
+        cache: writeback
+        discard: on
+        ro: false #ReadOnly
+        size: 30
         state: present
