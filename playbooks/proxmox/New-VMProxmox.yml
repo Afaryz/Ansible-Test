@@ -85,6 +85,7 @@
         ro: false #ReadOnly
         size: 10
         state: present
+        storage: "{{ storage }}"
     - name: Konfiguriere Disks scsi2 'E :'
       delegate_to: localhost
       community.proxmox.proxmox_disk:
@@ -99,3 +100,4 @@
         ro: false #ReadOnly
         size: 30
         state: present
+        storage: "{{ storage }}"
