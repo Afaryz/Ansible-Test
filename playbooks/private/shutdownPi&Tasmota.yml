@@ -3,21 +3,23 @@
   hosts: all
   become: true
   gather_facts: false
-  when: tasmota_command == 'Power%20off'
+  
   tasks:
     - name: Notify about upcoming shutdown
       debug:
         msg: "Shutting down host {{ inventory_hostname }}..."
-
+      when: tasmota_command == 'Power%20off'
 
     - name: Shutdown the system
       command: shutdown -h now
       async: 1
       poll: 0
-    
+      when: tasmota_command == 'Power%20off'
+
     - name: Wait 5 minutes to shutdown
       ansible.builtin.pause:
         minutes: 5
+      when: tasmota_command == 'Power%20off'
   
 - name: Schalte Tasmota Steckdose ein/aus
   hosts: localhost
