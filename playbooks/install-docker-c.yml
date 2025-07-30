@@ -87,7 +87,7 @@
         name:
           - docker-ce:arm64
          # - docker-ce-cli
-          - containerd.io
+         # - containerd.io
           - docker-buildx-plugin:arm64
           - docker-compose-plugin
         state: latest
