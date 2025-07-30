@@ -90,7 +90,8 @@
           - containerd.io
           - docker-buildx-plugin
           - docker-compose-plugin
-        state: present
+        state: latest
+        update_cache: yes
 
     - name: Ensure docker group exists
       group:
