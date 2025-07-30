@@ -110,3 +110,11 @@
         msg: >
           User '{{ ansible_user }}' was added to 'docker' group. Please re-login for group membership to take effect.
       when: docker_group_add.changed
+      
+    - name: Create /opt/docker directory
+      file:
+        path: /opt/docker
+        state: directory
+        owner: root
+        group: docker
+        mode: '2775'  # setgid + rwxrwxr-x
