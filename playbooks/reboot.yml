@@ -1,0 +1,15 @@
+---
+- name: Shutdown target machines safely
+  hosts: all
+  become: true
+  gather_facts: false
+
+  tasks:
+    - name: Notify about upcoming shutdown
+      debug:
+        msg: "Shutting down host {{ inventory_hostname }}..."
+
+    - name: Shutdown the system
+      command: shutdown -r now
+      async: 1
+      poll: 0
