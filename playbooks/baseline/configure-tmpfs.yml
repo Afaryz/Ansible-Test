@@ -1,0 +1,15 @@
+---
+- name: Configure /tmp Mount 
+  become: true
+  tasks:
+    - name: Configure /tmp Mount
+      ansible.builtin.lineinfile:
+        path: /etc/fstab
+        regexp: '^tmpfs\s+/tmp\s+'
+        line: 'tmpfs /tmp tmpfs rw,nosuid,nodev,noexec,relatime,size=2G 0 0'
+        create: yes
+    - name: Reboot system
+      ansible.builtin.reboot:
+        msg: "Reboot initiated by Ansible"
+        reboot_timeout: 10
+        test_command: whoami
