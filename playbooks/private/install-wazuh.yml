@@ -11,12 +11,8 @@
 
     - name: Determine Wazuh architecture
       ansible.builtin.set_fact:
-        wazuh_arch: >-
-          {% if ansible_architecture == 'aarch64' %}
-            arm64
-          {% else %}
-            amd64
-          {% endif %}
+        wazuh_arch: "{{ 'arm64' if ansible_architecture == 'aarch64' else 'amd64' }}"
+
 
     - name: Set Wazuh agent URL and local .deb path
       ansible.builtin.set_fact:
