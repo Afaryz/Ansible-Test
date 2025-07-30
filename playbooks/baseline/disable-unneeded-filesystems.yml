@@ -1,0 +1,23 @@
+---
+- name: Disable unneeded Filesystems
+  hosts: all
+  become: true
+  vars:
+    disabled_filesystems:
+      - cramfs
+      - freevxfs
+      - jffs2
+      - hfs
+      - hfsplus
+      - udf
+  tasks:  
+    - name: Deaktiviere unerwünschte Dateisystem-Module
+      ansible.builtin.copy:
+        dest: "/etc/modprobe.d/{{ item }}.conf"
+        content: |
+          install {{ item }} /bin/true
+        owner: root
+        group: root
+        mode: '0644'
+      loop: "{{ disabled_filesystems }}"
+
