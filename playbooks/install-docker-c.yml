@@ -85,10 +85,10 @@
     - name: Install Docker packages
       apt:
         name:
-         # - docker-ce
-          - docker-ce-cli
+          - docker-ce:arm64
+         # - docker-ce-cli
           - containerd.io
-          - docker-buildx-plugin
+          - docker-buildx-plugin:arm64
           - docker-compose-plugin
         state: latest
         update_cache: yes
