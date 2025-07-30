@@ -10,6 +10,7 @@
       - hfs
       - hfsplus
       - udf
+      - squashfs
   tasks:  
     - name: Deaktiviere unerwünschte Dateisystem-Module
       ansible.builtin.copy:
