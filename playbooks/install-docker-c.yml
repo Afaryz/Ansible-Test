@@ -86,8 +86,8 @@
       apt:
         name:
           - docker-ce:arm64
-         # - docker-ce-cli
-         # - containerd.io
+          - docker-ce-cli:arm64
+          - containerd.io:arm64
           - docker-buildx-plugin:arm64
           - docker-compose #-plugin
         state: latest
