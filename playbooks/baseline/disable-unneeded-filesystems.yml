@@ -21,4 +21,11 @@
         group: root
         mode: '0644'
       loop: "{{ disabled_filesystems }}"
-
+      
+    - name: Configure /tmp Mount
+      ansible.builtin.lineinfile:
+        path: /etc/fstab
+        regexp: '^tmpfs\s+/tmp\s+'
+        line: 'tmpfs /tmp tmpfs rw,nosuid,nodev,noexec,relatime 0 0'
+        create: yes
+      
