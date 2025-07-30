@@ -1,5 +1,6 @@
 ---
 - name: Configure /tmp Mount 
+  hosts: all
   become: true
   tasks:
     - name: Configure /tmp Mount
