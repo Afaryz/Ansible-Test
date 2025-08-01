@@ -1,0 +1,50 @@
+---
+- name: Set legal banners for CIS compliance
+  hosts: all
+  become: true
+
+  vars:
+    legal_banner: |
+      WARNING: Unauthorized access to this system is prohibited.
+      All activities are monitored and recorded.
+      By accessing this system, you consent to such monitoring.
+
+  tasks:
+    - name: Set /etc/motd
+      copy:
+        content: "{{ legal_banner }}"
+        dest: /etc/motd
+        owner: root
+        group: root
+        mode: '0644'
+
+    - name: Set /etc/issue
+      copy:
+        content: "{{ legal_banner }}"
+        dest: /etc/issue
+        owner: root
+        group: root
+        mode: '0644'
+
+    - name: Set /etc/issue.net
+      copy:
+        content: "{{ legal_banner }}"
+        dest: /etc/issue.net
+        owner: root
+        group: root
+        mode: '0644'
+
+    - name: Configure SSH to use /etc/issue.net
+      lineinfile:
+        path: /etc/ssh/sshd_config
+        regexp: '^Banner'
+        line: 'Banner /etc/issue.net'
+        state: present
+        create: yes
+      notify: Restart SSH
+
+  handlers:
+    - name: Restart SSH
+      service:
+        name: sshd
+        state: restarted
