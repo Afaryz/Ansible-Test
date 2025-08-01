@@ -1,3 +1,4 @@
+---
 - name: APT Update & optionaler Reboot
   hosts: all
   become: true
@@ -12,11 +13,17 @@
         upgrade: dist
         autoremove: yes
 
-    - name: Prüfen, ob Reboot benötigt wird
+    - name: Prüfen, ob /var/run/reboot-required existiert
       stat:
         path: /var/run/reboot-required
-      register: reboot_required
+      register: reboot_required_var
+
+    - name: Prüfen, ob /run/reboot-required existiert
+      stat:
+        path: /run/reboot-required
+      register: reboot_required_run
 
     - name: Neustart bei Bedarf
-      reboot:
-      when: reboot_required.stat.exists
+      ansible.builtin.reboot:
+      when: reboot_required_var.stat.exists or reboot_required_run.stat.exists
+
