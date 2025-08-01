@@ -1,0 +1,42 @@
+---
+- name: Enable Secure Boot on Proxmox VE
+  hosts: proxmox
+  become: true
+  tasks:
+
+    - name: Ensure package list is updated
+      apt:
+        update_cache: yes
+
+    - name: Install Secure Boot support packages
+      apt:
+        name: proxmox-secure-boot-support
+        state: present
+
+    - name: Check if system uses EFI
+      stat:
+        path: /sys/firmware/efi
+      register: efi_check
+
+    - name: Fail if system is not using EFI
+      fail:
+        msg: "System is not booted in EFI mode. Secure Boot requires UEFI."
+      when: not efi_check.stat.exists
+
+    - name: Check if proxmox-boot-tool is available
+      stat:
+        path: /usr/sbin/proxmox-boot-tool
+      register: pbt_check
+
+    - name: Refresh proxmox-boot-tool (if available)
+      command: proxmox-boot-tool refresh
+      when: pbt_check.stat.exists
+
+    - name: Check Secure Boot state
+      command: mokutil --sb-state
+      register: sb_state
+      ignore_errors: yes
+
+    - name: Show Secure Boot state
+      debug:
+        msg: "{{ sb_state.stdout | default('mokutil not available or Secure Boot not enabled') }}"
