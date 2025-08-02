@@ -15,7 +15,8 @@
     path: /etc/default/grub
     regexp: '^GRUB_CMDLINE_LINUX="(.*)"'
     line: 'GRUB_CMDLINE_LINUX="\1 audit=1"'
-    backrefs: no
+    backrefs: false
+    state: present
   register: grub_audit
 
 - name: Ensure GRUB has audit_backlog_limit=8192
@@ -23,7 +24,8 @@
     path: /etc/default/grub
     regexp: '^GRUB_CMDLINE_LINUX="(.*)"'
     line: 'GRUB_CMDLINE_LINUX="\1 audit_backlog_limit=8192"'
-    backrefs: no
+    backrefs: false
+    state: present
   register: grub_auditbacklog
 
 - name: Run update-grub to apply GRUB changes
