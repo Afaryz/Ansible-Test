@@ -10,3 +10,8 @@
 
 - name: Update initramfs
   command: update-initramfs -u
+
+- name: Restart Auditd 
+  service:
+    name: auditd 
+    state: restarted

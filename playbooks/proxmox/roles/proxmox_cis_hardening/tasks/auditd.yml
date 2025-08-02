@@ -59,6 +59,7 @@
     line: 'max_log_file_action = keep_logs'
     state: present
     backup: true
+  notify: Restart Auditd 
 
 - name: Install audit.rules via template in loop
   loop:
@@ -73,6 +74,7 @@
     owner: root
     group: root
     mode: '0640'
+  notify: Restart Auditd 
 
 #- name: Ensure immutable mode is enabled at end of audit rules
 #  lineinfile:
@@ -84,9 +86,3 @@
 #    owner: root
 #    group: root
 #    mode: '0640'
-
-
-- name: Restart auditd to load new rules
-  service:
-    name: auditd
-    state: restarted
