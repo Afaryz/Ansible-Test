@@ -32,10 +32,35 @@
 - name: Install CIS audit.rules via template
   template:
     src: cis.rules.j2
-    dest: /etc/audit/rules.d/cis.rules
+    dest: /etc/audit/rules.d/00-cis.rules
     owner: root
     group: root
     mode: '0640'
+- name: Install CIS system-locale.rules via template
+  template:
+    src: system.rules.j2
+    dest: /etc/audit/rules.d/10-system-locale.rules
+    owner: root
+    group: root
+    mode: '0640'
+- name: Install CIS Mandatory Access Controls rules via template
+  template:
+    src: macpolicy.rules.j2
+    dest: /etc/audit/rules.d/20-MAC-policy.rules
+    owner: root
+    group: root
+    mode: '0640'
+#- name: Ensure immutable mode is enabled at end of audit rules
+#  lineinfile:
+#    path: /etc/audit/rules.d/99-finalize.rules
+#    line: "-e 2"
+#    insertafter: EOF
+#    state: present
+#    create: yes
+#    owner: root
+#    group: root
+#    mode: '0640'
+
 
 - name: Restart auditd to load new rules
   service:
