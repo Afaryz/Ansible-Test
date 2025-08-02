@@ -4,3 +4,5 @@
   include_tasks: add-legal-banner.yml
 - name: Configure Logrotate 
   include_tasks: configure-logrotate.yml
+- name: Install and Configure auditd
+  include_tasks: auditd.yml

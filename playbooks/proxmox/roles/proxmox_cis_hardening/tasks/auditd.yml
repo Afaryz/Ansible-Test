@@ -1,0 +1,43 @@
+- name: Install auditd package
+  apt:
+    name: auditd
+    state: present
+    update_cache: yes
+
+- name: Ensure auditd service is enabled and started
+  systemd:
+    name: auditd
+    enabled: yes
+    state: started
+
+- name: Ensure GRUB has audit=1
+  lineinfile:
+    path: /etc/default/grub
+    regexp: '^GRUB_CMDLINE_LINUX="(.*)"'
+    line: 'GRUB_CMDLINE_LINUX="\1 audit=1"'
+    backrefs: yes
+
+- name: Ensure GRUB has audit_backlog_limit=8192
+  lineinfile:
+    path: /etc/default/grub
+    regexp: '^GRUB_CMDLINE_LINUX="(.*)"'
+    line: 'GRUB_CMDLINE_LINUX="\1 audit_backlog_limit=8192"'
+    backrefs: yes
+
+- name: Run update-grub to apply GRUB changes
+  command: update-grub
+  notify: Reboot System
+
+
+- name: Install CIS audit.rules via template
+  template:
+    src: cis.rules.j2
+    dest: /etc/audit/rules.d/cis.rules
+    owner: root
+    group: root
+    mode: '0640'
+
+- name: Restart auditd to load new rules
+  service:
+    name: auditd
+    state: restarted
