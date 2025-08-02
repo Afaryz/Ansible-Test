@@ -9,7 +9,7 @@
 
 - name: Set /etc/issue using template
   template:
-    src: motd.j2
+    src: issue.j2
     dest: /etc/issue
     owner: root
     group: root
@@ -17,7 +17,7 @@
 
 - name: Set /etc/issue.net using template
   template:
-    src: motd.j2
+    src: issue.j2
     dest: /etc/issue.net
     owner: root
     group: root
