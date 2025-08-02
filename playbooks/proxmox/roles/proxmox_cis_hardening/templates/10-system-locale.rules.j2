@@ -1,8 +1,15 @@
-## System Local changes hostname, domainname, network
+# Überwachung von Änderungen an System-Locale-bezogenen Einstellungen und Dateien
+# Kategorie: system-locale
+
+# 64-Bit: Überwachung von sethostname und setdomainname
 -a always,exit -F arch=b64 -S sethostname -S setdomainname -k system-locale
+
+# 32-Bit: Überwachung von sethostname und setdomainname
 -a always,exit -F arch=b32 -S sethostname -S setdomainname -k system-locale
--w /etc/issue -p wa -k system-locale 
--w /etc/issue.net -p wa -k system-locale
--w /etc/hosts -p wa -k system-locale 
--w /etc/network -p wa -k system-locale
+
+# Überwachung von systemrelevanten Konfigurationsdateien (lesen + ändern)
+-w /etc/issue        -p wa -k system-locale
+-w /etc/issue.net    -p wa -k system-locale
+-w /etc/hosts        -p wa -k system-locale
+-w /etc/network      -p wa -k system-locale
 

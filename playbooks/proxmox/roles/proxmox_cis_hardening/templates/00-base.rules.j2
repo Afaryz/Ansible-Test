@@ -42,20 +42,16 @@
 # Kategorie: access
 
 # 64-Bit Regeln - Zugriffsverweigerung wegen fehlender Berechtigungen (-EACCES)
--a always,exit -F arch=b64 -S creat -S open -S openat -S truncate -S ftruncate \
-  -F exit=-EACCES -F auid>=1000 -F auid!=4294967295 -k access
+-a always,exit -F arch=b64 -S creat -S open -S openat -S truncate -S ftruncate -F exit=-EACCES -F auid>=1000 -F auid!=4294967295 -k access
 
 # 64-Bit Regeln - Operation nicht erlaubt (-EPERM)
--a always,exit -F arch=b64 -S creat -S open -S openat -S truncate -S ftruncate \
-  -F exit=-EPERM -F auid>=1000 -F auid!=4294967295 -k access
+-a always,exit -F arch=b64 -S creat -S open -S openat -S truncate -S ftruncate -F exit=-EPERM -F auid>=1000 -F auid!=4294967295 -k access
 
 # 32-Bit Regeln - Zugriffsverweigerung wegen fehlender Berechtigungen (-EACCES)
--a always,exit -F arch=b32 -S creat -S open -S openat -S truncate -S ftruncate \
-  -F exit=-EACCES -F auid>=1000 -F auid!=4294967295 -k access
+-a always,exit -F arch=b32 -S creat -S open -S openat -S truncate -S ftruncate -F exit=-EACCES -F auid>=1000 -F auid!=4294967295 -k access
 
 # 32-Bit Regeln - Operation nicht erlaubt (-EPERM)
--a always,exit -F arch=b32 -S creat -S open -S openat -S truncate -S ftruncate \
-  -F exit=-EPERM -F auid>=1000 -F auid!=4294967295 -k access
+-a always,exit -F arch=b32 -S creat -S open -S openat -S truncate -S ftruncate -F exit=-EPERM -F auid>=1000 -F auid!=4294967295 -k access
 
 # Überwachung von mount-Vorgängen durch nicht-privilegierte Benutzer
 # Kategorie: mounts
