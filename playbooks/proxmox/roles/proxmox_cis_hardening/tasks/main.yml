@@ -13,3 +13,6 @@
 #- name: Include Debian-only hardening
  # include_tasks: debian.yml
  # when: not is_proxmox.stat.exists
+
+- name: Include Proxmox-specific hardening
+  include_tasks: common_end.yml

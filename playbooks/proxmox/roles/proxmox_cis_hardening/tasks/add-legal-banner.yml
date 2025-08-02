@@ -1,0 +1,33 @@
+---
+- name: Set /etc/motd using template
+  template:
+    src: motd.j2
+    dest: /etc/motd
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Set /etc/issue using template
+  template:
+    src: motd.j2
+    dest: /etc/issue
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Set /etc/issue.net using template
+  template:
+    src: motd.j2
+    dest: /etc/issue.net
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Configure SSH to use /etc/issue.net
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '^Banner'
+    line: 'Banner /etc/issue.net'
+    state: present
+    create: yes
+  notify: Restart SSH
