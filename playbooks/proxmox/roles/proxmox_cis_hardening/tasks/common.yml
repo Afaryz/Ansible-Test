@@ -6,3 +6,5 @@
   include_tasks: configure-logrotate.yml
 - name: Install and Configure auditd
   include_tasks: auditd.yml
+- name: Configure SSH
+  include_tasks: secure-sshd.yml
