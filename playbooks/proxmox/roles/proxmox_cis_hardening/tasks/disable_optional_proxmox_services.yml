@@ -1,0 +1,11 @@
+- name: Disable Ceph services
+  service:
+    name: "{{ item }}"
+    enabled: no
+    state: stopped
+  loop:
+    - ceph.target
+    - ceph-mon.target
+    - ceph-mgr.target
+    - ceph-osd.target
+  ignore_errors: true

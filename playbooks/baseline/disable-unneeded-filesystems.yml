@@ -10,7 +10,7 @@
       - hfs
       - hfsplus
       - udf
-      - squashfs
+      #- squashfs #squashfs is proxmox included
       - rds
       - sctp
       - dccp

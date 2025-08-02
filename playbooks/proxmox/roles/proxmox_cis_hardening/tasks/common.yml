@@ -1,0 +1,2 @@
+- name: Configure /tmp 
+  include_tasks: configure-tmpfs.yml

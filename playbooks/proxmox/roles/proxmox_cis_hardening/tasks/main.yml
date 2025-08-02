@@ -1,0 +1,15 @@
+- name: Detect if system is Proxmox
+  stat:
+    path: /usr/bin/pveversion
+  register: is_proxmox
+
+- name: Include common tasks
+  include_tasks: common.yml
+
+- name: Include Proxmox-specific hardening
+  include_tasks: proxmox.yml
+  when: is_proxmox.stat.exists
+
+#- name: Include Debian-only hardening
+ # include_tasks: debian.yml
+ # when: not is_proxmox.stat.exists
