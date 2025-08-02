@@ -2,3 +2,5 @@
   include_tasks: configure-tmpfs.yml
 - name: Adding Legal Banners 
   include_tasks: add-legal-banner.yml
+- name: Configure Logrotate 
+  include_tasks: configure-logrotate.yml

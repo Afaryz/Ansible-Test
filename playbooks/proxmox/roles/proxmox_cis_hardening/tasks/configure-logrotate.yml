@@ -1,0 +1,13 @@
+- name: Ensure /etc/logrotate.conf has secure permissions
+  ansible.builtin.file:
+    path: /etc/logrotate.conf
+    owner: root
+    group: root
+    mode: '0640'
+- name: Ensure logrotate.conf contains secure create line
+  ansible.builtin.lineinfile:
+    path: /etc/logrotate.conf
+    regexp: '^create\s+'
+    line: 'create 0640 root utmp'
+    state: present
+    backrefs: yes
