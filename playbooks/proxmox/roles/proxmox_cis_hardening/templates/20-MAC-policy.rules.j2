@@ -1,4 +1,7 @@
-## Mandatory Acces Controls rule
--w /etc/apparmor/ -p wa -k MAC-policy 
--w /etc/apparmor.d/ -p wa -k MAC-policy
+# Überwachung von AppArmor Mandatory Access Control Konfigurationsverzeichnissen
+# Kategorie: MAC-policy
+
+-w /etc/apparmor/    -p wa -k MAC-policy
+-w /etc/apparmor.d/  -p wa -k MAC-policy
+
 

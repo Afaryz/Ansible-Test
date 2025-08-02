@@ -61,3 +61,15 @@
 
 # 32-Bit Regel
 -a always,exit -F arch=b32 -S mount -F auid>=1000 -F auid!=4294967295 -k mounts
+
+# Überwachung von Datei-Lösch- und Umbenennungsvorgängen
+# Kategorie: delete
+
+# 64-Bit Regeln
+-a always,exit -F arch=b64 -S unlink -S unlinkat -S rename -S renameat \
+  -F auid>=1000 -F auid!=4294967295 -k delete
+
+# 32-Bit Regeln
+-a always,exit -F arch=b32 -S unlink -S unlinkat -S rename -S renameat \
+  -F auid>=1000 -F auid!=4294967295 -k delete
+

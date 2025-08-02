@@ -1,0 +1,8 @@
+# Überwachung von execve-Aufrufen mit euid != uid und euid=0 (root), durch nicht-privilegierte Benutzer
+# Kategorie: actions
+
+# 64-Bit Regeln
+-a always,exit -F arch=b64 -C euid!=uid -F euid=0 -F auid>=1000 -F auid!=4294967295 -S execve -k actions
+
+# 32-Bit Regeln
+-a always,exit -F arch=b32 -C euid!=uid -F euid=0 -F auid>=1000 -F auid!=4294967295 -S execve -k actions
