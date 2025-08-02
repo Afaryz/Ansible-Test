@@ -65,6 +65,7 @@
     - 00-base
     - 10-system-locale
     - 20-MAC-policy
+    - 30-perm-mod
   template:
     src: "{{ item }}.rules.j2"
     dest: /etc/audit/rules.d/{{ item }}.rules
