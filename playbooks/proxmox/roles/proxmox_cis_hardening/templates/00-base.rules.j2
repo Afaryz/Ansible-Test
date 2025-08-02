@@ -37,6 +37,4 @@
 -a always,exit -F arch=b64 -S init_module -S delete_module -k modules
 -a always,exit -F arch=b32 -S init_module -S delete_module -k modules
 
-## The max_log_file_action setting determines how to handle the audit log file reaching the max file size. A value of keep_logs will rotate the logs but never delete old logs.
-max_log_file_action = keep_logs
 

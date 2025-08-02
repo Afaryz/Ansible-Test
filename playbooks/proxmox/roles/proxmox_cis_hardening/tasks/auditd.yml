@@ -52,6 +52,14 @@
 #    owner: root
 #    group: root
 #    mode: '0640'
+- name: Ensure correct max_log_file_action in auditd.conf
+  lineinfile:
+    path: /etc/audit/auditd.conf
+    regexp: '^max_log_file_action\s*='
+    line: 'max_log_file_action = keep_logs'
+    state: present
+    backup: true
+
 - name: Install audit.rules via template in loop
   loop:
     - 00-base
