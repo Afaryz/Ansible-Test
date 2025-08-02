@@ -1,22 +1,11 @@
-- name: Set and log permissions on critical files
-  block:
-  - name: Log current item being processed
-    ansible.builtin.debug:
-      msg: "Setting permissions for {{ item.path }} to {{ item.mode }} owned by {{ item.owner }}:{{ item.group }}"
+- name: Log current item being processed
+  ansible.builtin.debug:
+    msg: "Setting permissions for {{ item.path }} to {{ item.mode }} owned by {{ item.owner }}:{{ item.group }}"
 
-  - name: Fix permissions on critical files
-    ansible.builtin.file:
-      path: "{{ item.path }}"
-      owner: "{{ item.owner }}"
-      group: "{{ item.group }}"
-      mode: "{{ item.mode }}"
-  loop:
-    - { path: "/etc/crontab",         owner: "root", group: "root", mode: "0600" }
-    - { path: "/etc/cron.d",          owner: "root", group: "root", mode: "0700" }
-    - { path: "/etc/cron.hourly",     owner: "root", group: "root", mode: "0700" }
-    - { path: "/etc/cron.daily",      owner: "root", group: "root", mode: "0700" }
-    - { path: "/etc/cron.weekly",     owner: "root", group: "root", mode: "0700" }
-    - { path: "/etc/cron.monthly",    owner: "root", group: "root", mode: "0700" }
-    - { path: "/etc/ssh/sshd_config", owner: "root", group: "root", mode: "0600" }
-    - { path: "/etc/logrotate.conf",  owner: "root", group: "root", mode: "0640" }
-    - { path: "/boot/grub/grub.cfg",  owner: "root", group: "root", mode: "0400" }
+- name: Fix permissions on critical files
+  ansible.builtin.file:
+    path: "{{ item.path }}"
+    owner: "{{ item.owner }}"
+    group: "{{ item.group }}"
+    mode: "{{ item.mode }}"
+    
