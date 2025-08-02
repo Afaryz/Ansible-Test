@@ -10,28 +10,26 @@
     enabled: yes
     state: started
 
-- name: Ensure GRUB has audit=1
-  lineinfile:
-    path: /etc/default/grub
-    regexp: '^GRUB_CMDLINE_LINUX="(.*)"'
-    line: 'GRUB_CMDLINE_LINUX="\1 audit=1"'
-    backrefs: false
-    state: present
-  register: grub_audit
+#- name: Ensure GRUB has audit=1
+#  lineinfile:
+#    path: /etc/default/grub
+#    regexp: '^GRUB_CMDLINE_LINUX="(.*)"'
+#    line: 'GRUB_CMDLINE_LINUX="\1 audit=1"'
+#    state: present
+#  register: grub_audit
 
-- name: Ensure GRUB has audit_backlog_limit=8192
-  lineinfile:
-    path: /etc/default/grub
-    regexp: '^GRUB_CMDLINE_LINUX="(.*)"'
-    line: 'GRUB_CMDLINE_LINUX="\1 audit_backlog_limit=8192"'
-    backrefs: false
-    state: present
-  register: grub_auditbacklog
+#- name: Ensure GRUB has audit_backlog_limit=8192
+#  lineinfile:
+#    path: /etc/default/grub
+#    regexp: '^GRUB_CMDLINE_LINUX="(.*)"'
+#    line: 'GRUB_CMDLINE_LINUX="\1 audit_backlog_limit=8192"'
+#    state: present
+#  register: grub_auditbacklog
 
-- name: Run update-grub to apply GRUB changes
-  command: update-grub
-  notify: Reboot System
-  when: grub_audit.changed or grub_auditbacklog.changed
+#- name: Run update-grub to apply GRUB changes
+#  command: update-grub
+#  notify: Reboot System
+#  when: grub_audit.changed or grub_auditbacklog.changed
 
 #- name: Install CIS audit.rules via template
 #  template:
