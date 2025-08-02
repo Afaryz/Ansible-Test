@@ -1,6 +1,3 @@
-# Leeres requirements.yml – keine Rollen definiert
-roles: 
-  - name: proxmox_cis_hardening 
-    src: 
-    version: main
+# Leeres requirements.yml – keine thirdparty-Rollen definiert
+roles: []
 
