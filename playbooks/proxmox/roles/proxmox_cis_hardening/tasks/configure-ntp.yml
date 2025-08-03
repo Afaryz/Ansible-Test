@@ -1,0 +1,34 @@
+- name: Ensure systemd-timesyncd is removed (if installed)
+  apt:
+    name: systemd-timesyncd
+    state: absent
+  ignore_errors: true
+
+- name: Disable and stop systemd-timesyncd service (if active)
+  systemd:
+    name: systemd-timesyncd
+    enabled: false
+    state: stopped
+  ignore_errors: true
+
+- name: Install chrony
+  apt:
+    name: chrony
+    state: present
+    update_cache: yes
+
+- name: Enable and start chrony
+  systemd:
+    name: chrony
+    enabled: true
+    state: started
+
+- name: Configure NTP servers in chrony.conf
+  blockinfile:
+    path: /etc/chrony/chrony.conf
+    marker: "# {mark} ANSIBLE MANAGED NTP SERVERS"
+    block: |
+      {% for server in ntp_servers %}
+      pool {{ server }} iburst
+      {% endfor %}
+  notify: Restart chrony

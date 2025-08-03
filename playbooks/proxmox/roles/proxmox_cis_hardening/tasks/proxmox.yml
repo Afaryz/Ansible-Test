@@ -1,2 +1,5 @@
 - name: Disable USB Storage 
   include_tasks: usb.yml
+
+- name: Configure NTP Services
+  include_tasks: configure-ntp.yml
