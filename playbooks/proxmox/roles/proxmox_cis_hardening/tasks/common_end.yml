@@ -1,3 +1,9 @@
+- name: Configure allow List not deny 
+  include_tasks: allownotdeny.yml
+  loop:
+    - cron
+    - at
+
 - name: Configure Mandatory File Permissions 
   include_tasks: set-mandatory-file-permissions.yml
   loop:
