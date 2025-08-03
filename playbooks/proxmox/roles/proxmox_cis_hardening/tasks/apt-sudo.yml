@@ -1,0 +1,5 @@
+- name: Install sudo if missing
+  ansible.builtin.apt:
+    name: sudo
+    state: present
+    update_cache: yes

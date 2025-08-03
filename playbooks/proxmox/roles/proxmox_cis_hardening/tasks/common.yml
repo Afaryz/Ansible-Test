@@ -1,5 +1,7 @@
 - name: Configure /tmp 
   include_tasks: configure-tmpfs.yml
+- name: Install sudo
+  include_tasks: apt-sudo.yml
 - name: Adding Legal Banners 
   include_tasks: add-legal-banner.yml
 - name: Configure Logrotate 
