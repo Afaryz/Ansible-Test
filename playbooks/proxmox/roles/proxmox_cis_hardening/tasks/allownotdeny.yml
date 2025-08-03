@@ -6,4 +6,4 @@
   ansible.builtin.file: 
     path: /etc/{{ item }}.allow 
     state: present
-    mode: 640
+    mode: '0640'
