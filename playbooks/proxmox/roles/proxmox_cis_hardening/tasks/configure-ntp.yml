@@ -3,7 +3,7 @@
     name: systemd-timesyncd
     state: absent
   ignore_errors: true
-  register: systemd-timesyncd
+  register: systemdtimesyncd
 
 - name: Disable and stop systemd-timesyncd service (if active)
   systemd:
@@ -11,7 +11,7 @@
     enabled: false
     state: stopped
   ignore_errors: true
-  when: systemd-timesyncd.changed
+  when: systemdtimesyncd.changed
 
 - name: Install chrony
   apt:
