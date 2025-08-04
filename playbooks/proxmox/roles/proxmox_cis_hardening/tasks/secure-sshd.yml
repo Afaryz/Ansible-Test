@@ -4,7 +4,7 @@
     regexp: '^#?MaxAuthTries'
     line: 'MaxAuthTries 4'
     state: present
-    backrefs: yes
+   # backrefs: yes
   notify: Restart SSH
 
 - name: Disable X11 forwarding
@@ -13,7 +13,7 @@
     regexp: '^#?X11Forwarding'
     line: 'X11Forwarding no'
     state: present
-    backrefs: yes
+   # backrefs: yes
   notify: Restart SSH
 
 - name: Set strong MAC algorithms
@@ -22,7 +22,7 @@
     regexp: '^#?MACs'
     line: 'MACs hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,hmac-sha2- 512,hmac-sha2-256'
     state: present
-    backrefs: yes
+   # backrefs: yes
   notify: Restart SSH
 
 - name: Set ClientAliveInterval to 300 (1-300 allowed)
@@ -31,7 +31,7 @@
     regexp: '^#?ClientAliveInterval'
     line: 'ClientAliveInterval 300'
     state: present
-    backrefs: yes
+   # backrefs: yes
   notify: Restart SSH
 
 - name: Set ClientAliveCountMax to 3 or less
@@ -40,7 +40,7 @@
     regexp: '^#?ClientAliveCountMax'
     line: 'ClientAliveCountMax 3'
     state: present
-    backrefs: yes
+   # backrefs: yes
   notify: Restart SSH
 
 - name: Set LoginGraceTime to 60
@@ -49,7 +49,7 @@
     regexp: '^#?LoginGraceTime'
     line: 'LoginGraceTime 60'
     state: present
-    backrefs: yes
+   # backrefs: yes
   notify: Restart SSH
 
 - name: Disable AllowTcpForwarding 
@@ -58,7 +58,7 @@
     regexp: '^#?AllowTcpForwarding'
     line: 'AllowTcpForwarding no'
     state: present
-    backrefs: yes
+    #backrefs: yes
   notify: Restart SSH
 
 - name: Set MaxStartups to 10:30:100 or more restrictive
@@ -67,7 +67,7 @@
     regexp: '^#?MaxStartups'
     line: 'MaxStartups 10:30:100'
     state: present
-    backrefs: yes
+   # backrefs: yes
   notify: Restart SSH
 
 - name: Disable root login if disable_root is true
@@ -76,7 +76,7 @@
     regexp: '^#?PermitRootLogin'
     line: 'PermitRootLogin no'
     state: present
-    backrefs: yes
+    #backrefs: yes
   when: disable_root | bool
   notify: Restart SSH
 
