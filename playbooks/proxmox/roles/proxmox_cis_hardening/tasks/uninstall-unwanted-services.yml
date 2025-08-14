@@ -1,6 +1,6 @@
 - name: Remove unwanted Services 
   apt:
-    name: {{ item }}
+    name: "{{ item }}"
     state: absent
     purge: yes
   ignore_errors: true
