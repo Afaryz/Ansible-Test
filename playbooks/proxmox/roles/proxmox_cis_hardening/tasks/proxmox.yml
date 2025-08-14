@@ -23,5 +23,5 @@
 - name: Uninstall unwanted Services
   include_tasks: uninstall-unwanted-services.yml
   loop:
-    - rsync
+    #- rsync ist in proxmox-ve enthalten!
     - gdm3
