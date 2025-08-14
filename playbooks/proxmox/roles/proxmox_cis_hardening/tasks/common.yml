@@ -1,5 +1,7 @@
 - name: Configure /tmp 
   include_tasks: configure-tmpfs.yml
+- name: Configure /dev/shm 
+  include_tasks: configure-shm-mount.yml
 - name: Install sudo
   include_tasks: apt-sudo.yml
 - name: Adding Legal Banners 

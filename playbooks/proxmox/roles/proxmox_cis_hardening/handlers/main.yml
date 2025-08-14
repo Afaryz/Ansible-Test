@@ -20,3 +20,10 @@
   systemd:
     name: chrony
     state: restarted
+- name: Remount /tmp
+  ansible.builtin.command: mount -o remount,noexec /tmp
+  listen: Remount /tmp
+
+- name: Remount /dev/shm
+  ansible.builtin.command: mount -o remount,noexec /dev/shm
+  listen: Remount /dev/shm

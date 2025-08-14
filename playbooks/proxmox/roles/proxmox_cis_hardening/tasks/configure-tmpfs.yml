@@ -4,4 +4,4 @@
     regexp: '^tmpfs\s+/tmp\s+'
     line: 'tmpfs /tmp tmpfs rw,nosuid,nodev,noexec,relatime,size=2G 0 0'
     create: yes
-
+    notify: Remount /tmp

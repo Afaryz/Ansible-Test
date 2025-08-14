@@ -4,17 +4,20 @@
 - name: Configure NTP Services
   include_tasks: configure-ntp.yml
 
-- name: Disable unwanted Filesystems 
+- name: Disable unwanted Filesystems & Services
   include_tasks: disable-unwanted-filesystems.yml
   loop:
+      #Filesystems
       - cramfs
       - freevxfs
       - jffs2
       - hfs
       - hfsplus
       - udf
+      #Services
       - rds
       - sctp
       - dccp
       - tipc
       #- squashfs #squashfs is proxmox included
+      
