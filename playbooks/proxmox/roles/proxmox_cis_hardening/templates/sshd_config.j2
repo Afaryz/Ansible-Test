@@ -1,6 +1,6 @@
 # {{ ansible_managed }}
 PermitRootLogin {{ permitrootlogin }}
-PasswordAuthentication no
+PasswordAuthentication {{ password_auth }}
 PubkeyAuthentication yes
 PermitEmptyPasswords no
 PermitUserEnvironment no
