@@ -4,7 +4,7 @@
 - name: Configure NTP Services
   include_tasks: configure-ntp.yml
 
-- name: Disable unwanted Filesystems & Services
+- name: Disable unwanted Filesystems & Modules
   include_tasks: disable-unwanted-filesystems.yml
   loop:
       #Filesystems
@@ -20,4 +20,8 @@
       - dccp
       - tipc
       #- squashfs #squashfs is proxmox included
-      
+- name: Uninstall unwanted Services
+  include_tasks: uninstall-unwanted-services.yml
+  loop:
+    - rsync
+    - gdm3
