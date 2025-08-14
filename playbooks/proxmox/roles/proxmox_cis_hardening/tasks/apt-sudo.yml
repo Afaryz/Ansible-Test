@@ -12,7 +12,7 @@
     group: root
     mode: '0440'
     validate: '/usr/sbin/visudo -cf %s'
-  register: sudo_logfile_tasks
+  register: sudo_logfile_task
 - name: Ensure sudo log file exists
   ansible.builtin.file:
     path: /var/log/sudo.log
