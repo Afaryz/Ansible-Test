@@ -1,82 +1,18 @@
-- name: Set MaxAuthTries to 4
-  ansible.builtin.lineinfile:
+- name: Ensure sshd_config includes drop-in directory
+  lineinfile:
     path: /etc/ssh/sshd_config
-    regexp: '^#?MaxAuthTries'
-    line: 'MaxAuthTries 4'
+    regexp: '^Include\s+/etc/ssh/sshd_config\.d/\*\.conf'
+    line: 'Include /etc/ssh/sshd_config.d/*.conf'
+    insertafter: '^#?Port '
     state: present
-   # backrefs: yes
   notify: Restart SSH
 
-- name: Disable X11 forwarding
-  ansible.builtin.lineinfile:
-    path: /etc/ssh/sshd_config
-    regexp: '^#?X11Forwarding'
-    line: 'X11Forwarding no'
-    state: present
-   # backrefs: yes
-  notify: Restart SSH
 
-- name: Set strong MAC algorithms
-  ansible.builtin.lineinfile:
-    path: /etc/ssh/sshd_config
-    regexp: '^#?MACs'
-    line: 'MACs hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,hmac-sha2- 512,hmac-sha2-256'
-    state: present
-   # backrefs: yes
+- name: Deploy CIS-compliant drop-in config 
+  template:
+    src: sshd_config.j2
+    dest: /etc/ssh/sshd_config.d/99-cis.conf
+    owner: root
+    group: root
+    mode: '0600'
   notify: Restart SSH
-
-- name: Set ClientAliveInterval to 300 (1-300 allowed)
-  ansible.builtin.lineinfile:
-    path: /etc/ssh/sshd_config
-    regexp: '^#?ClientAliveInterval'
-    line: 'ClientAliveInterval 300'
-    state: present
-   # backrefs: yes
-  notify: Restart SSH
-
-- name: Set ClientAliveCountMax to 3 or less
-  ansible.builtin.lineinfile:
-    path: /etc/ssh/sshd_config
-    regexp: '^#?ClientAliveCountMax'
-    line: 'ClientAliveCountMax 3'
-    state: present
-   # backrefs: yes
-  notify: Restart SSH
-
-- name: Set LoginGraceTime to 60
-  ansible.builtin.lineinfile:
-    path: /etc/ssh/sshd_config
-    regexp: '^#?LoginGraceTime'
-    line: 'LoginGraceTime 60'
-    state: present
-   # backrefs: yes
-  notify: Restart SSH
-
-- name: Disable AllowTcpForwarding 
-  ansible.builtin.lineinfile:
-    path: /etc/ssh/sshd_config
-    regexp: '^#?AllowTcpForwarding'
-    line: 'AllowTcpForwarding no'
-    state: present
-    #backrefs: yes
-  notify: Restart SSH
-
-- name: Set MaxStartups to 10:30:100 or more restrictive
-  ansible.builtin.lineinfile:
-    path: /etc/ssh/sshd_config
-    regexp: '^#?MaxStartups'
-    line: 'MaxStartups 10:30:100'
-    state: present
-   # backrefs: yes
-  notify: Restart SSH
-
-- name: Disable root login if disable_root is true
-  ansible.builtin.lineinfile:
-    path: /etc/ssh/sshd_config
-    regexp: '^#?PermitRootLogin'
-    line: 'PermitRootLogin no'
-    state: present
-    #backrefs: yes
-  when: disable_root | bool
-  notify: Restart SSH
-
