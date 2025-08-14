@@ -6,7 +6,8 @@
 - name: Ensure sudo logs to a custom file
   ansible.builtin.copy:
     dest: /etc/sudoers.d/logfile
-    content: 'Defaults logfile="/var/log/sudo.log"'
+    content: |
+      Defaults logfile="/var/log/sudo.log"
     owner: root
     group: root
     mode: '0440'
