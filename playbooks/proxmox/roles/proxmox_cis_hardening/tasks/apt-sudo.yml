@@ -20,7 +20,7 @@
 #    owner: root
 #    group: root
 #    mode: '0600'
-  when: sudo_logfile_task is changed
+#  when: sudo_logfile_task is changed
 
 
 
