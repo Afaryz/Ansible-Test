@@ -23,7 +23,7 @@
 - name: GRUB Passwort setzen
   ansible.builtin.template:
     src: grub_password.j2
-    dest: /etc/grub.d/50_grub_password
+    dest: /etc/grub.d/40_custom
     owner: root
     group: root
     mode: '0600'
