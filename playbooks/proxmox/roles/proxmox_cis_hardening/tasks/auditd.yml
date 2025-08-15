@@ -6,7 +6,9 @@
 
 - name: Ensure auditd service is enabled and started
   systemd:
-    name: auditd
+    name: 
+      - auditd
+      - audispd-plugins
     enabled: yes
     state: started
 
