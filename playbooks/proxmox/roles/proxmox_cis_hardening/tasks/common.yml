@@ -10,6 +10,8 @@
   include_tasks: configure-logrotate.yml
 - name: Install and Configure auditd
   include_tasks: auditd.yml
+- name: Install Apparmor
+  include_tasks: apparmor.yml
 - name: Configure SSH
   include_tasks: secure-sshd.yml
 - name: Configure Journald

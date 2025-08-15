@@ -1,0 +1,9 @@
+- name: Install auditd package
+  apt:
+    name: 
+      - apparmor
+      - apparmor-profiles
+      - apparmor-utils
+    state: present
+    update_cache: yes
+

@@ -1,0 +1,13 @@
+- name: Load Package facts 
+  ansible.builtin.package_facts:
+    manager: apt
+- name: Set Variables for Grub 
+  ansible.builtin.set_fact:
+    grub_extra_options: >-
+      {{ ('apparmor=1 security=apparmor' if 'apparmor' in ansible_facts.packages else '')}}
+      {{ ('audit=1' if 'auditd' in ansible_facts.packages else '') }}
+
+- name: Log current item being processed
+  ansible.builtin.debug:
+    msg: 'GRUB_CMDLINE_LINUX="{{ grub_extra_options | trim }}"'
+  notfiy: Update GRUB
