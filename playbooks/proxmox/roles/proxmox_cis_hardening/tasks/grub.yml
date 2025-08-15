@@ -14,6 +14,6 @@
   ansible.builtin.lineinfile:
     path: /etc/default/grub
     regexp: '^GRUB_CMDLINE_LINUX='
-    line: 'GRUB_CMDLINE_LINUX="{{ grub_extra_opts | trim }}"'
+    line: 'GRUB_CMDLINE_LINUX="{{ grub_extra_options | trim }}"'
     backrefs: no
   notify: Update GRUB
