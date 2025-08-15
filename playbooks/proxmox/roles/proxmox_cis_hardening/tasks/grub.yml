@@ -5,8 +5,15 @@
   ansible.builtin.set_fact:
     grub_extra_options: >-
       {{ ('apparmor=1 security=apparmor' if 'apparmor' in ansible_facts.packages else '')}}
-      {{ ('audit=1' if 'auditd' in ansible_facts.packages else '') }}
+      {{ ('audit=1 audit_backlog_limit=8192' if 'auditd' in ansible_facts.packages else '') }}
 
-- name: Log current item being processed
-  ansible.builtin.debug:
-    msg: 'GRUB_CMDLINE_LINUX="{{ grub_extra_options | trim }}"'
+# name: Log current item being processed
+#  ansible.builtin.debug:
+#    msg: 'GRUB_CMDLINE_LINUX="{{ grub_extra_options | trim }}"'
+- name: update GRUB configuration
+  ansible.builtin.lineinfile:
+    path: /etc/default/grub
+    regexp: '^GRUB_CMDLINE_LINUX='
+    line: 'GRUB_CMDLINE_LINUX="{{ grub_extra_opts | trim }}"'
+    backrefs: no
+  notify: Update GRUB
