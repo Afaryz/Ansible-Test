@@ -1,17 +1,16 @@
 - name: Install auditd package
   apt:
-    name: auditd
+    name: 
+      - auditd
+      - audispd-plugins
     state: present
     update_cache: yes
 
 - name: Ensure auditd service is enabled and started
   systemd:
-    name: 
-      - auditd
-      - audispd-plugins
+    name: auditd
     enabled: yes
     state: started
-
 #- name: Ensure GRUB has audit=1
 #  lineinfile:
 #    path: /etc/default/grub
