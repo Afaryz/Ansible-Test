@@ -1,4 +1,4 @@
-- name: Disable unwanted filesystems
+- name: Disable unwanted filesystems "{{ item }}"
   ansible.builtin.copy:
     dest: "/etc/modprobe.d/{{ item }}.conf"
     content: |

@@ -12,3 +12,5 @@
   include_tasks: auditd.yml
 - name: Configure SSH
   include_tasks: secure-sshd.yml
+- name: Configure Journald
+  include_tasks: configure-journald.yml

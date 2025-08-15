@@ -1,0 +1,8 @@
+- name: Enforce persitent Storage 
+  ansible.builtin.lineinfile:
+    path: /etc/systemd/journald.conf
+    regexp: '^\s*#?\s*Storage='
+    line: 'Storage=persitent'
+    backup: true
+    create: yes
+  notify: Restart systemd-journald
