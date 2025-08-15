@@ -5,5 +5,5 @@
 - name: Add/Edit {{ item }}.allow
   ansible.builtin.file: 
     path: /etc/{{ item }}.allow 
-    state: touch
+    state: file
     mode: '0640'
