@@ -2,7 +2,7 @@
 #  ansible.builtin.debug:
 #    msg: "Setting permissions for {{ item.path }} to {{ item.mode }} owned by {{ item.owner }}:{{ item.group }}"
 
-- name: Fix permissions on critical files
+- name: Fix permissions on critical files "{{ item.path }}"
   ansible.builtin.file:
     path: "{{ item.path }}"
     owner: "{{ item.owner }}"
