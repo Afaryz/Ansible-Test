@@ -1,6 +1,6 @@
 # roles/proxmox_cis_hardening/meta/main.yml
 galaxy_info:
-  author: yourname
+  author: Afaryz
   description: CIS-basierte Härtung für Proxmox VE
   license: MIT
   min_ansible_version: "2.10"

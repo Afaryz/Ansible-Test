@@ -9,3 +9,4 @@ ntp_servers:
     - 3.de.pool.ntp.org
 permitrootlogin: "yes" #'prohibit-password' or 'no'
 password_auth: "yes" # or "no"
+grub_superuser: grubadmin

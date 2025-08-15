@@ -17,3 +17,22 @@
     line: 'GRUB_CMDLINE_LINUX="{{ grub_extra_options | trim }}"'
     backrefs: no
   notify: Update GRUB
+
+#grub_pbkdf2 muss in der Shell erstellt werden und als externe Variable übertragen werden!
+#grub-mkpasswd-pbkdf2 -> Setzte Password
+- name: GRUB Passwort setzen
+  ansible.builtin.template:
+    src: grub_password.j2
+    dest: /etc/grub.d/50_grub_password
+    owner: root
+    group: root
+    mode: '0600'
+  notify: Update GRUB
+
+
+- name: Secure Permission for GRUB Config
+  ansible.builtin.file:
+    path: "/boot/grub/grub.cfg"
+    owner: "root"
+    group: "root"
+    mode: "0400"
