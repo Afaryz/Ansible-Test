@@ -76,6 +76,7 @@
     group: root
     mode: '0640'
   notify: Restart Auditd 
+  #
 
 #- name: Ensure immutable mode is enabled at end of audit rules
 #  lineinfile:
