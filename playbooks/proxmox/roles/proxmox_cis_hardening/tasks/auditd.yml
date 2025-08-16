@@ -69,6 +69,7 @@
     - 20-MAC-policy
     - 30-perm-mod
     - 40-action
+    - 99-finalize
   template:
     src: "{{ item }}.rules.j2"
     dest: /etc/audit/rules.d/{{ item }}.rules
