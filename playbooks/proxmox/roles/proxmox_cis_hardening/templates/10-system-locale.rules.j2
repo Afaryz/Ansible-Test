@@ -5,7 +5,7 @@
 -a always,exit -F arch=b64 -S sethostname -S setdomainname -k system-locale
 
 # 32-Bit: Überwachung von sethostname und setdomainname
--a always,exit -F arch=b32 -S sethostname -S setdomainname -k system-locale
+# -a always,exit -F arch=b32 -S sethostname -S setdomainname -k system-locale
 
 # Überwachung von systemrelevanten Konfigurationsdateien (lesen + ändern)
 -w /etc/issue        -p wa -k system-locale
