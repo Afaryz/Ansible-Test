@@ -10,3 +10,7 @@ ntp_servers:
 permitrootlogin: "yes" #'prohibit-password' or 'no'
 password_auth: "yes" # or "no"
 grub_superuser: grubadmin
+disable_ceph: true
+disable_rpcbind: true
+disable_multipathd: true #iSCSI, SAN, Firebchannel-LUN
+disable_pvecluster: true

@@ -1,6 +1,6 @@
 - name: Block USB storage module
   lineinfile:
-    path: /etc/modprobe.d/usb-storage.conf
+    path: /etc/modprobe.d/usb_storage.conf
     line: "install usb-storage /bin/true"
     create: yes
   when: disable_usb_storage
