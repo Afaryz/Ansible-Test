@@ -5,4 +5,6 @@
     owner: root
     group: root
     mode: '0640'
+    follow: yes
+    unsafe_writes: yes #no tmp file writes because of pmxcfs
   
