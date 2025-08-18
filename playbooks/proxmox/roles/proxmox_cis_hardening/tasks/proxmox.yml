@@ -28,4 +28,6 @@
 
 - name: Disable unwanted optional Proxmox-Services
   include_tasks: disable-optional-proxmox-services.yml
-  
+
+- name: Configure PVE-Firewall
+  include_tasks: configure-pvefirewall.yml

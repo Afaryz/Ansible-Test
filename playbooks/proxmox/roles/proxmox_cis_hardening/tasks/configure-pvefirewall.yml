@@ -1,0 +1,8 @@
+- name: Configure cluster.fw - Datacenter
+  ansible.builtin.template:
+    src: "cluster.fw.j2"
+    dest: /etc/pve/firewall/cluster.fw
+    owner: root
+    group: root
+    mode: '0640'
+  
