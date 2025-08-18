@@ -1,6 +1,6 @@
 - name: Create a Proxmox container
   hosts: all
-  gather_facts: false
+  gather_facts: true
   become: true
   roles:
     - proxmox_cis_hardening
