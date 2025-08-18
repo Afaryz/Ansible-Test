@@ -25,3 +25,7 @@
   loop:
     #- rsync ist in proxmox-ve enthalten!
     - gdm3
+
+- name: Disable unwanted optional Proxmox-Services
+  include_tasks: disable-optional-proxmox-services.yml
+  
