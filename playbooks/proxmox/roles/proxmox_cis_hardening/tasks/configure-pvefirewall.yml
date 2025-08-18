@@ -10,8 +10,8 @@
   
 - name: Configure Node Firewall
   ansible.builtin.template:
-  src: "host.fw.j2"
-  dest: "/etc/pve/nodes/{{ ansible_hostname }}/host.fw"
-  owner: root 
-  group: root
-  mode: '0640'
+    src: "host.fw.j2"
+    dest: "/etc/pve/nodes/{{ ansible_hostname }}/host.fw"
+    owner: root 
+    group: root
+    mode: '0640'
