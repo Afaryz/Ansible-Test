@@ -2,9 +2,9 @@
   ansible.builtin.template:
     src: "cluster.fw.j2"
     dest: /etc/pve/firewall/cluster.fw
-    owner: root
-    group: root
-    mode: '0640'
+    #owner: root # no owner/mode not allowed in pmxcfs
+    #group: root
+    #mode: '0640'
     follow: yes
     unsafe_writes: yes #no tmp file writes because of pmxcfs
   
