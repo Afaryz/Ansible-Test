@@ -40,8 +40,10 @@
   ansible.builtin.copy:
     src: "/tmp/{{ item }}.fw"
     dest: "/etc/pve/firewall/{{ item }}.fw"
-    owner: root
-    group: root
-    mode: '0644'
+    #owner: root
+    #group: root
+    #mode: '0644'
+    follow: yes
+    unsafe_writes: yes
     remote_src: yes
   loop: "{{ vm_assignments.keys() | list }}"
