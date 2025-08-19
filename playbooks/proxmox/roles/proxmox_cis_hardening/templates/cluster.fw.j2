@@ -16,9 +16,9 @@ enable: 0 #1
 [group {{ sg.name }}]
 {% for rule in sg.rules %}
 {% if rule.protocol == 'icmp' %}
-{{ rule.direction }} icmp {{ rule.action }}
+{{ rule.direction }} {{ rule.action }} -p icmp 
 {% else %}
-{{ rule.direction }} {{ rule.protocol }} dport {{ rule.port }} {{ rule.action }}
+{{ rule.direction }} {{ rule.action }} -p {{ rule.protocol }} --dport {{ rule.port }}
 {% endif %}
 {% endfor %}
 {% endfor %}
