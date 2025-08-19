@@ -1,8 +1,26 @@
 [OPTIONS]
-enable: 1
+enable: 0 #1
 
 
-[group pve-hostbase]
-IN ACCEPT -p tcp --dport 22
-IN ACCEPT -p tcp --dport 8006
-IN ACCEPT -p icmp
+#[group pve-hostbase]
+#IN ACCEPT -p tcp --dport 22
+#IN ACCEPT -p tcp --dport 8006
+#IN ACCEPT -p icmp
+
+
+# {% for sg in security_groups %}
+# sg.name 
+# {% endfor %}
+
+{% for sg in security_groups %}
+[group {{ sg.name }}]
+{% for rule in sg.rules %}
+{% if rule.protocol == 'icmp' %}
+{{ rule.direction }} icmp {{ rule.action }}
+{% else %}
+{{ rule.direction }} {{ rule.protocol }} dport {{ rule.port }} {{ rule.action }}
+{% endif %}
+{% endfor %}
+{% endfor %}
+
+# { "direction": "IN", "action": ACCEPT, "protocol": "tcp", "port": 22 }

@@ -7,6 +7,26 @@ ntp_servers:
     - 1.de.pool.ntp.org
     - 2.de.pool.ntp.org
     - 3.de.pool.ntp.org
+security_groups:
+    - name: pve-hostbase
+      rules: [
+        { "direction": "IN", "action": ACCEPT, "protocol": "tcp", "port": 22 },
+        { "direction": "IN", "action": ACCEPT, "protocol": "tcp", "port": 8006 }        
+      ]
+      assign_to:
+        - host
+        - vm-100
+    - name: webserver
+      rules: [
+        { "direction": "IN", "action": ACCEPT, "protocol": "tcp", "port": 80 },
+        { "direction": "IN", "action": ACCEPT, "protocol": "tcp", "port": 443 }        
+        ]
+      assign_to:
+        - vm-100
+    #IN ACCEPT -p tcp --dport 22
+    #IN ACCEPT -p tcp --dport 8006
+    #IN ACCEPT -p icmp
+
 permitrootlogin: "yes" #'prohibit-password' or 'no'
 password_auth: "yes" # or "no"
 grub_superuser: grubadmin
