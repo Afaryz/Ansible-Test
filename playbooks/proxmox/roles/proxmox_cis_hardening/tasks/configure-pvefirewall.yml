@@ -1,13 +1,15 @@
 - name: Configure cluster.fw - Datacenter
   ansible.builtin.template:
     src: "cluster.fw.j2"
-    dest: /etc/pve/firewall/cluster.fw
+    dest: /tmp/cluster.fw
     #owner: root # no owner/mode not allowed in pmxcfs
     #group: root
     #mode: '0640'
-    follow: yes
-    unsafe_writes: yes #no tmp file writes because of pmxcfs
-  
+    #follow: yes
+    #unsafe_writes: yes #no tmp file writes because of pmxcfs
+- name: Move cluster.fw firewall into cluster
+  ansible.builtin.command:
+    cmd: mv /tmp/cluster.fw /etc/pve/firewall/cluster.fw
 #- name: Configure Node Firewall
 #  ansible.builtin.template:
 #    src: "host.fw.j2"
