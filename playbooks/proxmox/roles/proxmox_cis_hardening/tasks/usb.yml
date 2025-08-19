@@ -6,6 +6,3 @@
   when: disable_usb_storage
   notify: Update initramfs
 
-#- name: Update initramfs after module block
-#  command: update-initramfs -u
-#  when: disable_usb_storage

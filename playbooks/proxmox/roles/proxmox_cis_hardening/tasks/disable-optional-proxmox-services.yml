@@ -1,17 +1,3 @@
-#- name: Disable Ceph services
-#  ansible.builtin.systemd:
-#    name: "{{ item }}"
-#    enabled: no
-#    state: stopped
-#    masked: true
-#  loop:
-#    - ceph.target
-#    - ceph-mon.target
-#    - ceph-mgr.target
-#    - ceph-osd.target
-#  ignore_errors: true
-#  when: disable_ceph
-
 - name: Disable and mask rpcbind
   ansible.builtin.systemd:
     name: "{{ item }}"
@@ -34,12 +20,3 @@
     - pve-ha-lrm
     - pve-ha-crm
   when: disable_pvecluster
-
-#- name: Disable and mask multipath if not needed
-#  ansible.builtin.systemd:
-#    name: multipathd#
-#    state: stopped
-#    enabled: false
-#    masked: true
-#  ignore_errors: true
-#  when: disable_multipathd
