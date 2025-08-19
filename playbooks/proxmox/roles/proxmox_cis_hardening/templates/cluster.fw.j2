@@ -8,19 +8,15 @@ enable: 1
 #IN ACCEPT -p icmp
 
 
-# {% for sg in security_groups %}
-# sg.name 
-# {% endfor %}
-
 {% for sg in security_groups %}
 [group {{ sg.name }}]
 {% for rule in sg.rules %}
 {% if rule.protocol == 'icmp' %}
-{{ rule.direction }} {{ rule.action }} -p icmp {% if rule.source is defined %} -source {{ rule.source }}{% endif %}
+{{ rule.direction }} {{ rule.action }} -p icmp {% if rule.source is defined %} -source {{ rule.source }}
+{% endif %}
 {% else %}
-{{ rule.direction }} {{ rule.action }} -p {{ rule.protocol }} --dport {{ rule.port }} {% if rule.source is defined %} -source {{ rule.source }}{% endif %}
+{{ rule.direction }} {{ rule.action }} -p {{ rule.protocol }} --dport {{ rule.port }} {% if rule.source is defined %} -source {{ rule.source }}
+{% endif %}
 {% endif %}
 {% endfor %}
 {% endfor %}
-
-# { "direction": "IN", "action": ACCEPT, "protocol": "tcp", "port": 22 }
