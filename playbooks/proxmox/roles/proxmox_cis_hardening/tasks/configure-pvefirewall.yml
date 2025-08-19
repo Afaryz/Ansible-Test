@@ -21,15 +21,9 @@
 - name: Configure VM Firewall
   ansible.builtin.template:
     src: "vm.fw.j2"
-    dest: "{{ '/etc/pve/nodes/' + ansible_hostname + '/host.fw' if vm == 'host' else '/etc/pve/firewall/' + vm + '.fw' }}"
-    #"/etc/pve/firewall/{{ vm }}.fw"
-    #owner: root 
-    #group: root
-    #mode: '0640'
+    dest: "{{ '/etc/pve/nodes/' + ansible_hostname + '/host.fw' if item == 'host' else '/etc/pve/firewall/' + item + '.fw' }}"
     follow: yes
     unsafe_writes: yes
-    loop: "{{ vm_assignments.keys() | list }}"
-    loop_control:
-        loop_var: vm
-    vars:
-      assigned_sgs: "{{ security_groups | selectattr('name', 'in', vm_assignments[vm]) | list }}"
+  loop: "{{ vm_assignments.keys() | list }}"
+  vars:
+    assigned_sgs: "{{ security_groups | selectattr('name', 'in', vm_assignments[item]) | list }}"
