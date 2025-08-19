@@ -21,13 +21,7 @@
 - name: Configure VM Firewall
   ansible.builtin.template:
     src: "vm.fw.j2"
-    dest: >
-      {% if vm == 'host' %}
-        /etc/pve/nodes/{{ ansible_hostname }}/host.fw
-      {% else %}
-        /etc/pve/firewall/{{ vm }}.fw
-      {% endif %}
-    
+    dest: "{{ '/etc/pve/nodes/' + ansible_hostname + '/host.fw' if vm == 'host' else '/etc/pve/firewall/' + vm + '.fw' }}"
     #"/etc/pve/firewall/{{ vm }}.fw"
     #owner: root 
     #group: root
