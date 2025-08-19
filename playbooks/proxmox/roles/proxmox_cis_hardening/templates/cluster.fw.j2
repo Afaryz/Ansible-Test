@@ -13,10 +13,10 @@ enable: 1
 {% for rule in sg.rules %}
 {% if rule.protocol == 'icmp' %}
 {{ rule.direction }} {{ rule.action }} -p icmp {% if rule.source is defined %} -source {{ rule.source }}
-{% endif %}
+{% endif %}\n
 {% else %}
 {{ rule.direction }} {{ rule.action }} -p {{ rule.protocol }} --dport {{ rule.port }} {% if rule.source is defined %} -source {{ rule.source }}
-{% endif %}
-{% endif %}
+{% endif %}\n
+{% endif %}\n
 {% endfor %}
 {% endfor %}
