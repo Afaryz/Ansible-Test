@@ -18,7 +18,6 @@ enable: 1
 {% else %}
 {{ rule.direction }} {{ rule.action }} -p {{ rule.protocol }} --dport {{ rule.port }} {% if rule.source is defined %} -source {{ rule.source }}
 {% endif %}
-
 {% endif %}
 
 {% endfor %}
