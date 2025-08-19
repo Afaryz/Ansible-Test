@@ -36,14 +36,18 @@
   vars:
     assigned_sgs: "{{ security_groups | selectattr('name', 'in', vm_assignments[item]) | list }}"
 
-- name: Copy firewall to Proxmox cluster
-  ansible.builtin.copy:
-    src: "/tmp/{{ item }}.fw"
-    dest: "/etc/pve/firewall/{{ item }}.fw"
+- name: Move firewall into cluster
+  ansible.builtin.command:
+    cmd: mv /tmp/{{ item }}.fw /etc/pve/firewall/{{ item }}.fw
+  loop: "{{ vm_assignments.keys() | list }}"
+#- name: Copy firewall to Proxmox cluster
+#  ansible.builtin.copy:
+#    src: "/tmp/{{ item }}.fw"
+#    dest: "/etc/pve/firewall/{{ item }}.fw"
     #owner: root
     #group: root
     #mode: '0644'
-    follow: yes
-    unsafe_writes: yes
-    remote_src: yes
-  loop: "{{ vm_assignments.keys() | list }}"
+#    follow: yes
+#    unsafe_writes: yes
+#    remote_src: yes
+#  loop: "{{ vm_assignments.keys() | list }}"
