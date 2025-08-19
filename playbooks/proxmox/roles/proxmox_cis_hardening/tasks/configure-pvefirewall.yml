@@ -17,3 +17,18 @@
     #mode: '0640'
     follow: yes
     unsafe_writes: yes
+
+- name: Configure VM Firewall
+  ansible.builtin.template:
+    src: "vm.fw.j2"
+    dest: "/etc/pve/firewall/{{ vm }}.fw"
+    #owner: root 
+    #group: root
+    #mode: '0640'
+    follow: yes
+    unsafe_writes: yes
+    loop: "{{ vm_assignments.keys() | list }}"
+    loop_control:
+        loop_var: vm
+    vars:
+      assigned_sgs: "{{ security_groups | selectattr('name', 'in', vm_assignments[vm]) | list }}"

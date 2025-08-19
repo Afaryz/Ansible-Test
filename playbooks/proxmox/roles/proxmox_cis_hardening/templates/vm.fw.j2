@@ -1,0 +1,9 @@
+[OPTIONS]
+enable: 1
+
+[RULES]
+# GROUP pve-hostbase
+
+{% for sg in assigned_sgs %}
+GROUP {{ sg.name }}
+{% endfor %}
