@@ -25,12 +25,20 @@
     enabled: true
     state: started
 
-- name: Configure NTP servers in chrony.conf
-  blockinfile:
-    path: /etc/chrony/chrony.conf
-    marker: "# {mark} ANSIBLE MANAGED NTP SERVERS"
-    block: |
-      {% for server in ntp_servers %}
-      pool {{ server }} iburst
-      {% endfor %}
-  notify: Restart chrony
+- name: Configure NTP Servers in chrony.conf
+  ansible.builtin.template:
+    src: chrony.conf.j2
+    dest: /etc/chrony/chrony.conf
+    owner: root
+    group: root 
+    mode: '0644'
+    
+#- name: Configure NTP servers in chrony.conf
+#  blockinfile:
+#    path: /etc/chrony/chrony.conf
+#    marker: "# {mark} ANSIBLE MANAGED NTP SERVERS"
+#    block: |
+#      {% for server in ntp_servers %}
+#      pool {{ server }} iburst
+#      {% endfor %}
+#  notify: Restart chrony
