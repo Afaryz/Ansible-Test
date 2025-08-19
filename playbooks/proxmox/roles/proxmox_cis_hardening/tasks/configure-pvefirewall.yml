@@ -8,20 +8,27 @@
     follow: yes
     unsafe_writes: yes #no tmp file writes because of pmxcfs
   
-- name: Configure Node Firewall
-  ansible.builtin.template:
-    src: "host.fw.j2"
-    dest: "/etc/pve/nodes/{{ ansible_hostname }}/host.fw"
-    #owner: root 
-    #group: root
-    #mode: '0640'
-    follow: yes
-    unsafe_writes: yes
+#- name: Configure Node Firewall
+#  ansible.builtin.template:
+#    src: "host.fw.j2"
+#    dest: "/etc/pve/nodes/{{ ansible_hostname }}/host.fw"
+#    #owner: root 
+#    #group: root
+#    #mode: '0640'
+#    follow: yes
+#    unsafe_writes: yes
 
 - name: Configure VM Firewall
   ansible.builtin.template:
     src: "vm.fw.j2"
-    dest: "/etc/pve/firewall/{{ vm }}.fw"
+    dest: >
+      {% if vm == 'host' %}
+        /etc/pve/nodes/{{ ansible_hostname }}/host.fw
+      {% else %}
+        /etc/pve/firewall/{{ vm }}.fw
+      {% endif %}
+    
+    #"/etc/pve/firewall/{{ vm }}.fw"
     #owner: root 
     #group: root
     #mode: '0640'
