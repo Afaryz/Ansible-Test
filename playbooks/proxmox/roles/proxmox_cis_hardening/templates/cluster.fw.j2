@@ -35,5 +35,7 @@ enable: 1
 {% for ip in ipset.ip %} 
 {{ ip }} {% if ipset.comment is defined %} # {{ ipset.comment }}
 {% endif %}
+
 {% endfor %}
+
 {% endfor %}
