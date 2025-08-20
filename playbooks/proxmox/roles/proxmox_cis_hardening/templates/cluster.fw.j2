@@ -12,12 +12,12 @@ enable: 1
 [group {{ sg.name }}]
 {% for rule in sg.rules %}
 {% if rule.protocol == 'icmp' %}
-{{ rule.direction }} {{ rule.action }} -p icmp {% if rule.source is defined %} -source {{ '+dc/' ~ rule.source }} {% if rule.comment is defined %} # {{ rule.comment }}
+{{ rule.direction }} {{ rule.action }} {% if rule.source is defined %} -source {{ '+dc/' ~ rule.source }} {% if rule.comment is defined %} -p icmp  # {{ rule.comment }}
 {% endif %}
 {% endif %}
 
 {% else %}
-{{ rule.direction }} {{ rule.action }} -p {{ rule.protocol }} --dport {{ rule.port }} {% if rule.source is defined %} -source {{ '+dc/' ~ rule.source }} {% if rule.comment is defined %} # {{ rule.comment }}
+{{ rule.direction }} {{ rule.action }} {% if rule.source is defined %} -source {{ '+dc/' ~ rule.source }} -p {{ rule.protocol }} --dport {{ rule.port }}  {% if rule.comment is defined %} # {{ rule.comment }}
 {% endif %}
 {% endif %}
 {% endif %}
@@ -39,3 +39,8 @@ enable: 1
 {% endfor %}
 
 {% endfor %}
+
+
+#IN ACCEPT -p tcp --dport 8006  -source +dc/management  # WebGUI
+#IN ACCEPT -source +dc/management -p tcp -dport 8006 -log nolog # WebGUI
+
