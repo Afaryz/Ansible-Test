@@ -17,7 +17,8 @@ enable: 1
 {% endif %}
 
 {% else %}
-{{ rule.direction }} {{ rule.action }} {% if rule.source is defined %} -source {{ '+dc/' ~ rule.source }} -p {{ rule.protocol }} --dport {{ rule.port }}  {% if rule.comment is defined %} # {{ rule.comment }}
+{{ rule.direction }} {{ rule.action }} {% if rule.source is defined %} -source {{ '+dc/' ~ rule.source }} -p {{ rule.protocol }} --dport {{ rule.port }}  {% if rule.source is defined %} -log nolog {% if rule.comment is defined %} # {{ rule.comment }}
+{% endif %}
 {% endif %}
 {% endif %}
 {% endif %}
