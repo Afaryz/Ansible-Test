@@ -26,7 +26,7 @@ security_groups:
         ]
     - name: https
       rules: [
-        { "direction": "IN", "action": ACCEPT, "protocol": "tcp", "port": 443 , "source": "@internal-net"}        
+        { "direction": "IN", "action": ACCEPT, "protocol": "tcp", "port": 443 }        
         ]
     #IN ACCEPT -p tcp --dport 22
     #IN ACCEPT -p tcp --dport 8006
