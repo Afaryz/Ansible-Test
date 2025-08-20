@@ -32,7 +32,7 @@ enable: 1
 
 {% for ipset in ipsets %}
 [IPSET {{ ipset.name }}]
-{% for ip in ipsets.ip %}
+{% for ip in ipset.ip %}
 {{ ip }}
 {% endfor %}
 {% endfor %}
