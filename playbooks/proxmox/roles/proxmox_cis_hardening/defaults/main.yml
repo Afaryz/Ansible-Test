@@ -9,14 +9,14 @@ ntp_servers:
     - 3.de.pool.ntp.org
 ipsets:
     - name: "internal-net"
-      ip: [
-        { "type": "net", "element": 192.168.1.0/24}
-      ]
+      ip:
+        - 192.168.1.0/24
+      
 security_groups:
     - name: pve-hostbase
       rules: [
         { "direction": "IN", "action": ACCEPT, "protocol": "tcp", "port": 22 },
-        { "direction": "IN", "action": ACCEPT, "protocol": "tcp", "port": 8006 },
+        { "direction": "IN", "action": ACCEPT, "protocol": "tcp", "port": 8006, "comment": "WebGUI"},
         { "direction": "IN", "action": ACCEPT, "protocol": "icmp" }           
       ]
     - name: webserver
