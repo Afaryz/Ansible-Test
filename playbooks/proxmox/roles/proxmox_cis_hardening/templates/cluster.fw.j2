@@ -2,6 +2,17 @@
 enable: 1
 
 
+{% for ipset in ipsets %}
+[IPSET {{ ipset.name }}]
+{% for ip in ipset.ip %} 
+{{ ip }} {% if ipset.comment is defined %} # {{ ipset.comment }}
+{% endif %}
+
+{% endfor %}
+
+{% endfor %}
+
+
 #[group pve-hostbase]
 #IN ACCEPT -p tcp --dport 22
 #IN ACCEPT -p tcp --dport 8006
@@ -17,7 +28,7 @@ enable: 1
 {% endif %}
 
 {% else %}
-{{ rule.direction }} {{ rule.action }} {% if rule.source is defined %} -source {{ '+dc/' ~ rule.source }} -p {{ rule.protocol }} --dport {{ rule.port }}  {% if rule.source is defined %} -log nolog {% if rule.comment is defined %} # {{ rule.comment }}
+{{ rule.direction }} {{ rule.action }} {% if rule.source is defined %}-source {{ '+dc/' ~ rule.source }} -p {{ rule.protocol }} --dport {{ rule.port }} {% if rule.source is defined %} -log nolog {% if rule.comment is defined %} # {{ rule.comment }}
 {% endif %}
 {% endif %}
 {% endif %}
@@ -31,15 +42,7 @@ enable: 1
 #192.168.2.10
 #192.168.2.10/24
 
-{% for ipset in ipsets %}
-[IPSET {{ ipset.name }}]
-{% for ip in ipset.ip %} 
-{{ ip }} {% if ipset.comment is defined %} # {{ ipset.comment }}
-{% endif %}
 
-{% endfor %}
-
-{% endfor %}
 
 
 #IN ACCEPT -p tcp --dport 8006  -source +dc/management  # WebGUI
