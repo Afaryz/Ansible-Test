@@ -11,7 +11,7 @@
     name: auditd
     enabled: yes
     state: started
-    ignore_errors: true
+  ignore_errors: yes
 
 - name: Ensure correct max_log_file_action in auditd.conf
   lineinfile:
