@@ -12,7 +12,7 @@ enable: 1
 [group {{ sg.name }}]
 {% for rule in sg.rules %}
 {% if rule.protocol == 'icmp' %}
-{{ rule.direction }} {{ rule.action }} -p icmp {% if rule.source is defined %} -source {{ rule.source }} {% if rule.comment is defined %} # {{ rule.comment }}
+{{ rule.direction }} {{ rule.action }} -p icmp {% if rule.source is defined %} -source +dc/{{ rule.source }} {% if rule.comment is defined %} # {{ rule.comment }}
 {% endif %}
 {% endif %}
 
