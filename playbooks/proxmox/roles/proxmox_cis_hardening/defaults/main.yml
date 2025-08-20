@@ -11,6 +11,9 @@ ipsets:
     - name: "internal-net"
       ip:
         - 192.168.1.0/24
+    - name: "management"
+      ip: 
+        - 192.168.2.163
       
 security_groups:
     - name: pve-hostbase

@@ -25,3 +25,14 @@ enable: 1
 {% endfor %}
 
 {% endfor %}
+
+#[IPSET management]
+#192.168.2.10
+#192.168.2.10/24
+
+{% for ipset in ipsets %}
+[IPSET {{ ipset.name }}]
+{% for ip in ipsets.ip %}
+{{ ip }}
+{% endfor %}
+{% endfor %}
