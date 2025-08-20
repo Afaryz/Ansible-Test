@@ -33,12 +33,12 @@ security_groups:
     #IN ACCEPT -p icmp
 
 vm_assignments:
-    host: 
+    "host": 
         - pve-hostbase
-    100: #ID of VM
+    "100": #ID of VM
         - pve-hostbase
         - webserver
-    101:
+    "101":
         - webserver
 permitrootlogin: "yes" #'prohibit-password' or 'no'
 password_auth: "yes" # or "no"
