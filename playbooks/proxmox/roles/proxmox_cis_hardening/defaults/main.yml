@@ -11,6 +11,7 @@ ipsets:
     - name: "internal-net"
       ip:
         - 192.168.1.0/24
+        - 192.168.2.0/24
     - name: "management"
       ip: 
         - 192.168.2.163
@@ -19,7 +20,7 @@ security_groups:
     - name: pve-hostbase
       rules: [
         { "direction": "IN", "action": ACCEPT, "protocol": "tcp", "port": 22 },
-        { "direction": "IN", "action": ACCEPT, "protocol": "tcp", "port": 8006, "comment": "WebGUI"},
+        { "direction": "IN", "action": ACCEPT, "protocol": "tcp", "port": 8006, "comment": "WebGUI", "source": "+management"},
         { "direction": "IN", "action": ACCEPT, "protocol": "icmp" }           
       ]
     - name: webserver
