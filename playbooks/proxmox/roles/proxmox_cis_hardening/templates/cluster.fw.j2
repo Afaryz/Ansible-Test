@@ -32,7 +32,8 @@ enable: 1
 
 {% for ipset in ipsets %}
 [IPSET {{ ipset.name }}]
-{% for ip in ipset.ip %} {% if ipset.comment is defined %} # {{ ipset.comment }
-{{ ip }}
+{% for ip in ipset.ip %} 
+{{ ip }} {% if ipset.comment is defined %} # {{ ipset.comment }
+{% endif %}
 {% endfor %}
 {% endfor %}
