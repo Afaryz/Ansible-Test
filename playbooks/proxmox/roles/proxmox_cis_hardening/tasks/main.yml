@@ -6,6 +6,7 @@
 - name: Include common tasks
   include_tasks: common.yml
 
+
 - name: Include Proxmox-specific hardening
   include_tasks: proxmox.yml
   when: is_proxmox.stat.exists

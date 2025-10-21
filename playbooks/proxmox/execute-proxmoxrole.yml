@@ -1,4 +1,15 @@
-- name: Create a Proxmox container
+---
+- name: Install Proxmox 
+  hosts: localhost
+  gather_facts: true 
+  become: true
+  tasks:
+    - name: Install proxmoxer
+      ansible.builtin.pip:
+        name: proxmoxer
+        state: latest #present
+
+- name: Install Proxmox CIS Hardening Role
   hosts: all
   gather_facts: true
   become: true
