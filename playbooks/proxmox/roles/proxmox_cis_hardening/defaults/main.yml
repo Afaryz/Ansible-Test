@@ -1,3 +1,4 @@
+proxmoxworker: localhost
 disable_usb_storage: true
 enable_auditd: true
 disable_root: false
